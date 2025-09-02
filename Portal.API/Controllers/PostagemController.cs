@@ -1,18 +1,13 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Portal.Application.Commands.CreateUserCommand;
-using Portal.Application.Commands.DeleteUserCommand;
-using Portal.Application.Commands.UpdateUserCommand;
-using Portal.Application.Queries.GetAllUsersQuery;
-using Portal.Application.Queries.GetUsersQuery;
 
 namespace Portal.API.Controllers
 {
-    public class UsuarioController : ControllerBase
+    public class PostagemController : ControllerBase
     {
         private readonly IMediator _mediator;
 
-        public UsuarioController(IMediator mediator)
+        public PostagemController(IMediator mediator)
         {
             _mediator = mediator;
         }
@@ -25,7 +20,7 @@ namespace Portal.API.Controllers
 
             var users = await _mediator.Send(Query);
 
-            return Ok();
+            return Ok(users);
         }
         [HttpGet("{id}")]
         public async Task<IActionResult> GetUserById(Guid id)
@@ -39,7 +34,7 @@ namespace Portal.API.Controllers
                 return BadRequest(user.Message);
             }
 
-            return Ok();
+            return Ok(user);
         }
 
         [HttpPost]
@@ -48,17 +43,22 @@ namespace Portal.API.Controllers
             var UserId = await _mediator.Send(command);
 
             return CreatedAtAction(nameof(GetUserById), new { id = UserId }, command);
-
-            return Ok();
         }
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateUser(UpdateUserCommand command)
-
+        public async Task<IActionResult> UpdateUsert(UpdateUserCommand command)
         {
             //command.Id =id;
 
-            return Ok();
+            var result = await _mediator.Send(command);
+            if (!result.IsSuccess)
+            {
+                return BadRequest(result.Message);
+            }
+
+            return NoContent();
         }
+
+
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteUser(Guid id)
         {
@@ -73,5 +73,4 @@ namespace Portal.API.Controllers
             return Ok();
         }
     }
-
 }
