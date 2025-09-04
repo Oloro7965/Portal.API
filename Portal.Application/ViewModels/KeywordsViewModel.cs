@@ -4,14 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Portal.Core.Entities
+namespace Portal.Application.ViewModels
 {
-    public class Keywords:BaseEntity
+    internal class KeywordsViewModel
     {
-       public Keywords(string titulo)
-        {
-            this.titulo = titulo;
-        }
         public string titulo { get; private set; }
     }
 }
