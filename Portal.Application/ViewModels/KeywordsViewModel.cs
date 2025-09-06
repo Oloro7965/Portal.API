@@ -8,6 +8,11 @@ namespace Portal.Application.ViewModels
 {
     internal class KeywordsViewModel
     {
+        public KeywordsViewModel(string titulo)
+        {
+            this.titulo = titulo;
+        }
+
         public string titulo { get; private set; }
     }
 }

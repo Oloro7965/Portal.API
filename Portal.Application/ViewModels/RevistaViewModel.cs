@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Portal.Core.Entities;
+using Portal.Core.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +10,20 @@ namespace Portal.Application.ViewModels
 {
     internal class RevistaViewModel
     {
+        public RevistaViewModel(string titulo, string descricao, string edicao, 
+            string capa, DateTime publicacao, string arquivopdf, List<Usuario> autores, Earea area, List<Keywords> keywords)
+        {
+            this.titulo = titulo;
+            this.descricao = descricao;
+            this.edicao = edicao;
+            this.capa = capa;
+            this.publicacao = publicacao;
+            this.arquivopdf = arquivopdf;
+            this.autores = autores;
+            this.area = area;
+            this.keywords = keywords;
+        }
+
         public string titulo { get; private set; }
         public string descricao { get; private set; }
         public string edicao { get; private set; }
