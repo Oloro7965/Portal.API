@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Portal.Core.Entities
 {
-    public class comentario:BaseEntity
+    public class Comentario:BaseEntity
     {
-        public comentario(string conteudo)
+        public Comentario(string conteudo)
         {
             this.conteudo = conteudo;
         }

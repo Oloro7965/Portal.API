@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Portal.Core.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,11 @@ using System.Threading.Tasks;
 
 namespace Portal.Core.Repositories
 {
-    internal interface IComentarioRepository
+    public interface IComentarioRepository
     {
+        Task<List<Comentario>> GetAllAsync();
+        Task AddAsync(Comentario comentario);
+        Task<List<Comentario>> GetByArtigoIdAsync(int artigoId);
+        Task SaveChangesAsync();
     }
 }

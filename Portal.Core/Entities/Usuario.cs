@@ -25,8 +25,8 @@ namespace Portal.Core.Entities
         public string email { get; private set; }
         public string senha { get; private set; }
         public List<artigo> artigos { get; private set; }
-        public List<postagem> postagens { get; private set; }
-        public List<comentario> comentarios { get; private set; }
+        public List<Postagem> postagens { get; private set; }
+        public List<Comentario> comentarios { get; private set; }
         public EtipoUsuario tipoUsuario { get; private set; }
         public List<Revista> RevistasPublicadas { get; private set; }
 

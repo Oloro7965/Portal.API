@@ -7,12 +7,11 @@ using System.Threading.Tasks;
 
 namespace Portal.Core.Repositories
 {
-    public interface IArtigoRepository
+    public interface IEventRepository
     {
-        Task<List<artigo>> GetAllAsync();
-        Task<artigo> GetByIdAsync(int id);
-        Task AddAsync(artigo artigo);
+        Task<List<Evento>> GetAllAsync();
+        Task<Evento> GetByIdAsync(int id);
+        Task AddAsync(Evento evento);
         Task SaveChangesAsync();
-
     }
 }

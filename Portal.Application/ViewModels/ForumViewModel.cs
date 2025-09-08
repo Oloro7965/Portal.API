@@ -21,6 +21,6 @@ namespace Portal.Application.ViewModels
         public string titulo { get; private set; }
         public Earea area { get; private set; }
         public string descricao { get; private set; }
-        public List<postagem> Postagem { get; private set; }
+        public List<Postagem> Postagem { get; private set; }
     }
 }

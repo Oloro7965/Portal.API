@@ -1,4 +1,5 @@
-﻿using Portal.Core.Entities;
+﻿using MediatR;
+using Portal.Core.Entities;
 using Portal.Core.Enums;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,6 @@ namespace Portal.Application.Commands.CreateForumCommand
         public string titulo { get; set; }
         public Earea area { get; set; }
         public string descricao { get; set; }
-        public List<postagem> Postagem { get; set; }
+        public List<Postagem> postagem { get; set; }
     }
 }

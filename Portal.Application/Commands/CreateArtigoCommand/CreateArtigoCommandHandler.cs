@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Portal.Core.Repositories;
 using Portal.Application.ViewModels;
 using Portal.Core.Entities;
 using System;
@@ -11,6 +12,7 @@ namespace Portal.Application.Commands.CreateArtigoCommand
 {
     public class CreateArtigoCommandHandler : IRequestHandler<CreateArtigoCommand, ResultViewModel<object>>
     {
+        private readonly IArtigoRepository _artigoRepository;
         public async Task<ResultViewModel<object>> Handle(CreateArtigoCommand request, CancellationToken cancellationToken)
         {
             var artigo = new artigo(
@@ -23,7 +25,8 @@ namespace Portal.Application.Commands.CreateArtigoCommand
                 new List<Keywords>()
             );
 
-            return await Task.FromResult(new ResultViewModel<object>(artigo));
+            await _artigoRepository.AddAsync(artigo);
+            return ResultViewModel<object>.Success(new { artigo.Id });
         }
 
     }
