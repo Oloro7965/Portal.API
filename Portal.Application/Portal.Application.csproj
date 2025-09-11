@@ -16,13 +16,4 @@
     <ProjectReference Include="..\Portal.Core\Portal.Core.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Commands\UpdateRevistaCommand\" />
-    <Folder Include="Commands\UpdatePostagemCommand\" />
-    <Folder Include="Commands\UpdateForumCommand\" />
-    <Folder Include="Commands\UpdateEventCommand\" />
-    <Folder Include="Commands\UpdateComentarioCommand\" />
-    <Folder Include="Commands\UpdateArtigoCommand\" />
-  </ItemGroup>
-
 </Project>

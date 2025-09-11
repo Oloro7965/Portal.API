@@ -10,7 +10,7 @@ namespace Portal.Core.Repositories
     public interface IRevistaRepository
     {
         Task<List<Revista>> GetAllAsync();
-        Task<Revista> GetByIdAsync(int id);
+        Task<Revista> GetByIdAsync(Guid id);
         Task AddAsync(Entities.Revista revista);
         Task SaveChangesAsync();
     }

@@ -29,6 +29,18 @@ namespace Portal.Core.Entities
         public List<Comentario> comentarios { get; private set; }
         public EtipoUsuario tipoUsuario { get; private set; }
         public List<Revista> RevistasPublicadas { get; private set; }
+        public bool IsDeleted { get; private set; }
+        public void Delete()
+        {
+            IsDeleted = true;
+        }
+        public void Update(string Email, string password)
+        {
+            email = Email;
+
+            senha = password;
+
+        }
 
     }
 }

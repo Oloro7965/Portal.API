@@ -10,7 +10,7 @@ namespace Portal.Core.Repositories
     public interface IForumRepository
     {
         Task<List<Forum>> GetAllAsync();
-        Task<Forum> GetByIdAsync(int id);
+        Task<Forum> GetByIdAsync(Guid id);
         Task AddAsync(Forum forum);
         Task SaveChangesAsync();
     }

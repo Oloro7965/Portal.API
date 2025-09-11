@@ -1,4 +1,5 @@
-﻿using Portal.Core.Enums;
+﻿using Microsoft.EntityFrameworkCore;
+using Portal.Core.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,5 +28,10 @@ namespace Portal.Core.Entities
         public List<Usuario> autores { get; private set; }
         public Earea area { get; private set; }
         public List<Keywords> keywords  { get; private set; }
+        public bool IsDeleted { get; private set; }
+        public void Delete()
+        {
+            IsDeleted = true;
+        }
     }
 }

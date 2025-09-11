@@ -10,7 +10,7 @@ namespace Portal.Core.Repositories
     public interface IEventRepository
     {
         Task<List<Evento>> GetAllAsync();
-        Task<Evento> GetByIdAsync(int id);
+        Task<Evento> GetByIdAsync(Guid id);
         Task AddAsync(Evento evento);
         Task SaveChangesAsync();
     }

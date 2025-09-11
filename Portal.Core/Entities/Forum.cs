@@ -28,5 +28,10 @@ namespace Portal.Core.Entities
         public Earea area { get; private set; }
         public string descricao { get; private set; }
         public List<Postagem> postagem { get; private set; }
+        public bool IsDeleted { get; private set; }
+        public void Delete()
+        {
+            IsDeleted = true;
+        }
     }
 }

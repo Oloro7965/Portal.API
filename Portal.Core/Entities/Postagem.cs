@@ -16,5 +16,10 @@ namespace Portal.Core.Entities
             this.conteudo = conteudo;
             this.comentarios = comentarios;
         }
+        public bool IsDeleted { get; private set; }
+        public void Delete()
+        {
+            IsDeleted = true;
+        }
     }
 }

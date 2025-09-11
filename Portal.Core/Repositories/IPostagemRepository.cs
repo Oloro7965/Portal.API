@@ -10,7 +10,7 @@ namespace Portal.Core.Repositories
     public interface IPostagemRepository
     {
         Task<List<Postagem>> GetAllAsync();
-        Task<Postagem> GetByIdAsync(int id);
+        Task<Postagem> GetByIdAsync(Guid id);
         Task AddAsync(Postagem postagem);
         Task SaveChangesAsync();
     }

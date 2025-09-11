@@ -31,5 +31,10 @@ namespace Portal.Core.Entities
         public List<Usuario> autores { get; private set; }
         public Earea area { get; private set; }
         public List<Keywords> keywords { get; private set; }
+        public bool IsDeleted { get; private set; }
+        public void Delete()
+        {
+            IsDeleted = true;
+        }
     }
 }

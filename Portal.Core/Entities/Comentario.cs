@@ -14,5 +14,10 @@ namespace Portal.Core.Entities
         }
 
         public string conteudo { get; private set; }
+        public bool IsDeleted { get; private set; }
+        public void Delete()
+        {
+            IsDeleted = true;
+        }
     }
 }

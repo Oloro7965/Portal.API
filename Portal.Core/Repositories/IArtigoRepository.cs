@@ -10,7 +10,7 @@ namespace Portal.Core.Repositories
     public interface IArtigoRepository
     {
         Task<List<artigo>> GetAllAsync();
-        Task<artigo> GetByIdAsync(int id);
+        Task<artigo> GetByIdAsync(Guid id);
         Task AddAsync(artigo artigo);
         Task SaveChangesAsync();
 

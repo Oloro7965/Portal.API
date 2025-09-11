@@ -10,8 +10,9 @@ namespace Portal.Core.Repositories
     public interface IComentarioRepository
     {
         Task<List<Comentario>> GetAllAsync();
+        Task<Comentario> GetByIdAsync(Guid id);
         Task AddAsync(Comentario comentario);
-        Task<List<Comentario>> GetByArtigoIdAsync(int artigoId);
+        Task<List<Comentario>> GetByComentarioIdAsync(int comentarioId);
         Task SaveChangesAsync();
     }
 }
