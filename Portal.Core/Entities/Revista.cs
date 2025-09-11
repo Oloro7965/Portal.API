@@ -36,5 +36,16 @@ namespace Portal.Core.Entities
         {
             IsDeleted = true;
         }
+        public void Update(string Titulo, string Descricao, string Edicao, string Capa, DateTime Publicacao, string Arquivopdf, List<Usuario> Autores, Earea Area)
+        {
+            titulo = Titulo;
+            descricao = Descricao;
+            edicao = Edicao;
+            capa = Capa;
+            publicacao = Publicacao;
+            arquivopdf = Arquivopdf;
+            autores = Autores;
+            area = Area;
+        }   
     }
 }

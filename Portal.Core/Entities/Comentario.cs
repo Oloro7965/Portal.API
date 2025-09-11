@@ -19,5 +19,9 @@ namespace Portal.Core.Entities
         {
             IsDeleted = true;
         }
+        public void Update(string Conteudo)
+        {
+            conteudo = Conteudo;
+        }
     }
 }

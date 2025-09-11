@@ -24,7 +24,7 @@ namespace Portal.Application.Commands.UpdateUserCommand
                 return ResultViewModel.Error("Usuário não encontrado.");
             }
             usuario.Update(request.Email, request.PasswordHash);
-            _usuarioRepository.SaveChangesAsync();
+            await _usuarioRepository.SaveChangesAsync();
             return ResultViewModel.Success();
         }
     }

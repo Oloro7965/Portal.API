@@ -33,5 +33,12 @@ namespace Portal.Core.Entities
         {
             IsDeleted = true;
         }
+        public void Update(string Titulo, Earea Area, string Descricao, List<Postagem> Postagem)
+        {
+            titulo = Titulo;
+            area = Area;
+            descricao = Descricao;
+            postagem = Postagem;
+        }
     }
 }

@@ -30,5 +30,14 @@ namespace Portal.Core.Entities
         {
             IsDeleted = true;
         }
+        public void Update(string Titulo, string Descricao, DateTime Data, string Local, string Area, List<Usuario> PalestranteIds)
+        {
+            titulo = Titulo;
+            descricao = Descricao;
+            data = Data;
+            local = Local;
+            area = Area;
+            Palestrante = PalestranteIds;
+        }
     }
 }

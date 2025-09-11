@@ -21,5 +21,10 @@ namespace Portal.Core.Entities
         {
             IsDeleted = true;
         }
+        public void Update(string Conteudo, List<Comentario> Comentario)
+        {
+            conteudo = Conteudo;
+            comentarios = Comentario;
+        }
     }
 }
