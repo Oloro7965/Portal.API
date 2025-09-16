@@ -9,13 +9,16 @@ namespace Portal.Application.ViewModels
 {
     internal class PostagemViewModel
     {
-        public PostagemViewModel(string conteudo, List<comentario> comentarios)
+        public PostagemViewModel(string conteudo, List<Comentario> comentarios, bool isDeleted)
         {
             this.conteudo = conteudo;
             this.comentarios = comentarios;
+            IsDeleted = isDeleted;
+
         }
 
         public string conteudo { get; private set; }
-        public List<comentario> comentarios { get; private set; }
+        public List<Comentario> comentarios { get; private set; }
+        public bool IsDeleted { get; private set; }
     }
 }

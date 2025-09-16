@@ -11,7 +11,7 @@ namespace Portal.Application.ViewModels
     internal class RevistaViewModel
     {
         public RevistaViewModel(string titulo, string descricao, string edicao, 
-            string capa, DateTime publicacao, string arquivopdf, List<Usuario> autores, Earea area, List<Keywords> keywords)
+            string capa, DateTime publicacao, string arquivopdf, List<Usuario> autores, Earea area, List<Keywords> keywords, bool isDeleted)
         {
             this.titulo = titulo;
             this.descricao = descricao;
@@ -22,6 +22,7 @@ namespace Portal.Application.ViewModels
             this.autores = autores;
             this.area = area;
             this.keywords = keywords;
+            IsDeleted = isDeleted;
         }
 
         public string titulo { get; private set; }
@@ -33,5 +34,6 @@ namespace Portal.Application.ViewModels
         public List<Usuario> autores { get; private set; }
         public Earea area { get; private set; }
         public List<Keywords> keywords { get; private set; }
+        public bool IsDeleted { get; private set; }
     }
 }

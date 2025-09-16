@@ -10,8 +10,8 @@ namespace Portal.Application.ViewModels
 {
     public class UsuarioViewModel
     {
-        public UsuarioViewModel(string nomeCompleto, string email, List<artigo> artigos, List<postagem> postagens, 
-            List<comentario> comentarios, EtipoUsuario tipoUsuario, List<Revista> revistasPublicadas)
+        public UsuarioViewModel(string nomeCompleto, string email, List<artigo> artigos, List<Postagem> postagens, 
+            List<Comentario> comentarios, EtipoUsuario tipoUsuario, List<Revista> revistasPublicadas)
         {
             NomeCompleto = nomeCompleto;
             this.email = email;
@@ -25,8 +25,8 @@ namespace Portal.Application.ViewModels
         public string NomeCompleto { get; private set; }
         public string email { get; private set; }
         public List<artigo> artigos { get; private set; }
-        public List<postagem> postagens { get; private set; }
-        public List<comentario> comentarios { get; private set; }
+        public List<Postagem> postagens { get; private set; }
+        public List<Comentario> comentarios { get; private set; }
         public EtipoUsuario tipoUsuario { get; private set; }
         public List<Revista> RevistasPublicadas { get; private set; }
     }

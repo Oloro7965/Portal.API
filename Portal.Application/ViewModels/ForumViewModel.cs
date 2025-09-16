@@ -10,17 +10,19 @@ namespace Portal.Application.ViewModels
 {
     internal class ForumViewModel
     {
-        public ForumViewModel(string titulo, Earea area, string descricao, List<postagem> postagem)
+        public ForumViewModel(string titulo, Earea area, string descricao, List<Postagem> postagem, bool isDeleted)
         {
             this.titulo = titulo;
             this.area = area;
             this.descricao = descricao;
             Postagem = postagem;
+            IsDeleted = isDeleted;
         }
 
         public string titulo { get; private set; }
         public Earea area { get; private set; }
         public string descricao { get; private set; }
         public List<Postagem> Postagem { get; private set; }
+        public bool IsDeleted { get; private set; }
     }
 }

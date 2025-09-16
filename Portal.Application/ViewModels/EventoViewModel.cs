@@ -10,7 +10,7 @@ namespace Portal.Application.ViewModels
     internal class EventoViewModel
     {
         public EventoViewModel(string titulo, string descricao, DateTime data,
-            string local, string area, List<Usuario> palestrante)
+            string local, string area, List<Usuario> palestrante, bool isDeleted)
         {
             this.titulo = titulo;
             this.descricao = descricao;
@@ -18,6 +18,8 @@ namespace Portal.Application.ViewModels
             this.local = local;
             this.area = area;
             Palestrante = palestrante;
+            IsDeleted = isDeleted;
+
         }
 
         public string titulo { get; private set; }
@@ -26,5 +28,6 @@ namespace Portal.Application.ViewModels
         public string local { get; private set; }
         public string area { get; private set; }
         public List<Usuario> Palestrante { get; private set; }
+        public bool IsDeleted { get; private set; }
     }
 }
