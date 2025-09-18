@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Portal.Application.ViewModels
 {
-    internal class KeywordsViewModel
+    public class KeywordsViewModel
     {
         public KeywordsViewModel(string titulo)
         {

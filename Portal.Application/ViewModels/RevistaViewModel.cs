@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Portal.Application.ViewModels
 {
-    internal class RevistaViewModel
+    public class RevistaViewModel
     {
         public RevistaViewModel(string titulo, string descricao, string edicao, 
             string capa, DateTime publicacao, string arquivopdf, List<Usuario> autores, Earea area, List<Keywords> keywords, bool isDeleted)

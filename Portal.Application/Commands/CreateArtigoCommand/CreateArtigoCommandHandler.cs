@@ -13,6 +13,10 @@ namespace Portal.Application.Commands.CreateArtigoCommand
     public class CreateArtigoCommandHandler : IRequestHandler<CreateArtigoCommand, ResultViewModel<object>>
     {
         private readonly IArtigoRepository _artigoRepository;
+        public CreateArtigoCommandHandler(IArtigoRepository artigoRepository)
+        {
+            _artigoRepository = artigoRepository;
+        }
         public async Task<ResultViewModel<object>> Handle(CreateArtigoCommand request, CancellationToken cancellationToken)
         {
             var artigo = new artigo(

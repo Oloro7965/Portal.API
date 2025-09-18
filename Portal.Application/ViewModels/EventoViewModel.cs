@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Portal.Application.ViewModels
 {
-    internal class EventoViewModel
+    public class EventoViewModel
     {
         public EventoViewModel(string titulo, string descricao, DateTime data,
             string local, string area, List<Usuario> palestrante, bool isDeleted)

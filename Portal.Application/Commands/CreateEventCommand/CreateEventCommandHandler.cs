@@ -21,8 +21,8 @@ namespace Portal.Application.Commands.CreateEventCommand
 
         public async Task<ResultViewModel<object>> Handle(CreateEventCommand request, CancellationToken cancellationToken)
         {
-            var event = new Event(Request.Titulo, Request.Descricao, Request.Data, Request.Local, Request.Area, Request.PalestranteIds);
-            await _eventRepository.AddAsync(event);
-            return new ResultViewModel<object>(event);
+            var evento = new Evento(request.Titulo, request.Descricao, request.Data, request.Local, request.Area, request.PalestranteIds);
+            await _eventRepository.AddAsync(evento);
+            return new ResultViewModel<object>(evento);
         }
 }

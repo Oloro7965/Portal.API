@@ -19,7 +19,7 @@ namespace Portal.Application.Queries.GetAllUsersQuery
         public async Task<ResultViewModel<List<UsuarioViewModel>>> Handle(GetAllUsersQuery request, CancellationToken cancellationToken)
         {
             var usuarios = await _usuarioRepository.GetAllAsync();
-            var usuarioViewModel = usuarios.Select(u => new UsuarioViewModel(u.NomeCompleto, u.email, u.artigos, u.postagens, u.comentarios, u.tipoUsuario, u.RevistasPublicadas)).ToList();
+            var usuarioViewModel = usuarios.Select(u => new UsuarioViewModel(u.NomeCompleto, u.email, u.senhaHash, u.artigos, u.postagens, u.comentarios, u.tipoUsuario, u.RevistasPublicadas)).ToList();
             return ResultViewModel<List<UsuarioViewModel>>.Success(usuarioViewModel);
         }
     }

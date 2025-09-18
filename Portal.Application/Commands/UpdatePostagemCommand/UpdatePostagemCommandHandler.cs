@@ -26,5 +26,6 @@ namespace Portal.Application.Commands.UpdatePostagemCommand
             postagem.Update(request.Conteudo, request.Comentarios);
             await _postagemRepository.SaveChangesAsync();
             return ResultViewModel.Success();
+        }
     }
 }

@@ -9,11 +9,11 @@ namespace Portal.Core.Entities
 {
     public class Usuario:BaseEntity
     {
-        public Usuario(string nomeCompleto, string email, string senha, List<artigo> artigos, List<postagem> postagens, List<comentario> comentarios, EtipoUsuario tipoUsuario, List<Revista> revistasPublicadas)
+        public Usuario(string nomeCompleto, string email, string senhaHash, List<artigo> artigos, List<Postagem> postagens, List<Comentario> comentarios, EtipoUsuario tipoUsuario, List<Revista> revistasPublicadas)
         {
             NomeCompleto = nomeCompleto;
             this.email = email;
-            this.senha = senha;
+            this.senhaHash = senhaHash;
             this.artigos = artigos;
             this.postagens = postagens;
             this.comentarios = comentarios;
@@ -23,7 +23,7 @@ namespace Portal.Core.Entities
 
         public string NomeCompleto { get; private set; }
         public string email { get; private set; }
-        public string senha { get; private set; }
+        public string senhaHash { get; private set; }
         public List<artigo> artigos { get; private set; }
         public List<Postagem> postagens { get; private set; }
         public List<Comentario> comentarios { get; private set; }

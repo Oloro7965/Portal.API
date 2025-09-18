@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Portal.Application.ViewModels;
 using Portal.Core.Entities;
 using Portal.Core.Enums;
 using System;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Portal.Application.Commands.CreateForumCommand
 {
-    public class CreateForumCommand
+    public class CreateForumCommand : IRequest<ResultViewModel<object>>
     {
         public string titulo { get; set; }
         public Earea area { get; set; }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Portal.Application.ViewModels
 {
-    internal class ComentarioViewModel
+    public class ComentarioViewModel
     {
         public ComentarioViewModel(string conteudo, bool isDeleted)
         {

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Portal.Application.ViewModels
 {
-    internal class PostagemViewModel
+    public class PostagemViewModel
     {
         public PostagemViewModel(string conteudo, List<Comentario> comentarios, bool isDeleted)
         {

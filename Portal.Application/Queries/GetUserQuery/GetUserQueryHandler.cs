@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Portal.Application.ViewModels;
+using Portal.Core.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,9 +11,20 @@ namespace Portal.Application.Queries.GetUsersQuery
 {
     public class GetUserQueryHandler : IRequestHandler<GetUserQuery, ResultViewModel<UsuarioViewModel>>
     {
-        public Task<ResultViewModel<UsuarioViewModel>> Handle(GetUserQuery request, CancellationToken cancellationToken)
+        private readonly IUsuarioRepository _usuarioRepository;
+        public GetUserQueryHandler(IUsuarioRepository usuarioRepository)
         {
-            throw new NotImplementedException();
+            _usuarioRepository = usuarioRepository;
+        }
+        public async Task<ResultViewModel<UsuarioViewModel>> Handle(GetUserQuery request, CancellationToken cancellationToken)
+        {
+            var usuario = await _usuarioRepository.GetByIdAsync(request.Id);
+            if (usuario is null)
+            {
+                return ResultViewModel<UsuarioViewModel>.Error("Usuário não encontrado.");
+            }
+            var UsuarioDetailViewModel = new UsuarioViewModel(usuario.NomeCompleto, usuario.email, usuario.senhaHash, usuario.artigos, usuario.postagens, usuario.comentarios, usuario.tipoUsuario, usuario.RevistasPublicadas);
+            return ResultViewModel<UsuarioViewModel>.Success(UsuarioDetailViewModel);
         }
     }
 }

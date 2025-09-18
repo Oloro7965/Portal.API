@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Portal.Application.ViewModels
 {
-    internal class ForumViewModel
+    public class ForumViewModel
     {
         public ForumViewModel(string titulo, Earea area, string descricao, List<Postagem> postagem, bool isDeleted)
         {

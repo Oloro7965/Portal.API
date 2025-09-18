@@ -10,20 +10,22 @@ namespace Portal.Application.ViewModels
 {
     public class UsuarioViewModel
     {
-        public UsuarioViewModel(string nomeCompleto, string email, List<artigo> artigos, List<Postagem> postagens, 
+        public UsuarioViewModel(string nomeCompleto, string email, string senhaHash, List<artigo> artigos, List<Postagem> postagens, 
             List<Comentario> comentarios, EtipoUsuario tipoUsuario, List<Revista> revistasPublicadas)
         {
             NomeCompleto = nomeCompleto;
             this.email = email;
+            this.senhaHash = senhaHash;
             this.artigos = artigos;
             this.postagens = postagens;
             this.comentarios = comentarios;
             this.tipoUsuario = tipoUsuario;
-            RevistasPublicadas = revistasPublicadas;
+            this.RevistasPublicadas = revistasPublicadas;
         }
 
         public string NomeCompleto { get; private set; }
         public string email { get; private set; }
+        public string senhaHash { get; private set; }
         public List<artigo> artigos { get; private set; }
         public List<Postagem> postagens { get; private set; }
         public List<Comentario> comentarios { get; private set; }
