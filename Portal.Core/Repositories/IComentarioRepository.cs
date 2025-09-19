@@ -12,7 +12,6 @@ namespace Portal.Core.Repositories
         Task<List<Comentario>> GetAllAsync();
         Task<Comentario> GetByIdAsync(Guid id);
         Task AddAsync(Comentario comentario);
-        Task<List<Comentario>> GetByComentarioIdAsync(int comentarioId);
         Task SaveChangesAsync();
     }
 }

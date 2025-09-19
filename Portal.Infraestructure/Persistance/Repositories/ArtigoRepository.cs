@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using Portal.Core.Entities;
+using Portal.Core.Repositories;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,24 +11,25 @@ namespace Portal.Infraestructure.Persistance.Repositories
 {
     public class ArtigoRepository : IArtigoRepository
     {
-        private readonly PortalDbContext _dbContext;
-        public ArtigoRepository(PortalDbContext _dbContext){
-            _dbContext = _dbContext;
+        private readonly PortalDbContext _dbcontext;
+        public ArtigoRepository(PortalDbContext dbcontext)
+        {
+            _dbcontext = dbcontext;
         }
-        public async Task AddAsync(Artigo artigo)
+        public async Task AddAsync(artigo artigo)
         { 
-            await_dbcontext.Artigo.AddAsync(room);
-            await_dbcontext.SaveChangeAsync();
+            await _dbcontext.Artigos.AddAsync(artigo);
+            await _dbcontext.SaveChangesAsync();
 
         }
-        public async Task<List<Artigo>>GetAllAsync()
+        public async Task<List<artigo>>GetAllAsync()
         {
-            return await _dbcontext.Artigo.Where(u => u.IsDeleted.Equals(false)).
+            return await _dbcontext.Artigos.Where(u => u.IsDeleted.Equals(false)).ToListAsync();
 
         }
-        public async Task<Artigo> GetByIdAsync(Guid id)
+        public async Task<artigo> GetByIdAsync(Guid id)
         {
-          return await _dbcontext.Artigo.Where(c=>c.IsDeleted.Equals(false) && c.Id == id)
+            return await _dbcontext.Artigos.Where(c => c.IsDeleted.Equals(false) && c.Id == id).SingleOrDefaultAsync();
         }
         public async Task SaveChangesAsync()
         {

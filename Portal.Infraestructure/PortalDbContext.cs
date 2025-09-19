@@ -20,8 +20,8 @@ namespace Portal.Infraestructure
         public DbSet<Evento> Eventos { get; set; }
         public DbSet<Keywords> keywords { get; set; }
         public DbSet<artigo> Artigos { get; set; }
-        public DbSet<postagem> Postagens { get; set; }
-        public DbSet<comentario> comentarios { get; set; }
+        public DbSet<Postagem> Postagens { get; set; }
+        public DbSet<Comentario> comentarios { get; set; }
 
         public PortalDbContext(DbContextOptions<PortalDbContext> options) : base(options)
         {
