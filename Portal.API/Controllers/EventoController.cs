@@ -1,5 +1,10 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Portal.Application.Commands.CreateEventCommand;
+using Portal.Application.Commands.DeleteEventCommand;
+using Portal.Application.Commands.UpdateEventCommand;
+using Portal.Application.Queries.GetAllEventosQuery;
+using Portal.Application.Queries.GetEventoQuery;
 
 namespace Portal.API.Controllers
 {
@@ -13,39 +18,40 @@ namespace Portal.API.Controllers
         }
 
         [HttpGet()]
-        public async Task<IActionResult> GetAllUsers()
+        public async Task<IActionResult> GetAllEventos()
         {
+            var Query = new GetAllEventosQuery();
 
-            var Query = new GetAllUsersQuery();
+            var eventos = await _mediator.Send(Query);
 
-            var users = await _mediator.Send(Query);
-
-            return Ok(users);
+            return Ok(eventos);
         }
+
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetUserById(Guid id)
+        public async Task<IActionResult> GetEventoById(Guid id)
         {
-            var query = new GetUserQuery(id);
+            var query = new GetEventoQuery(id);
 
-            var user = await _mediator.Send(query);
+            var evento = await _mediator.Send(query);
 
-            if (!user.IsSuccess)
+            if (!evento.IsSuccess)
             {
-                return BadRequest(user.Message);
+                return BadRequest(evento.Message);
             }
 
-            return Ok(user);
+            return Ok(evento);
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateUser(CreateUserCommand command)
+        public async Task<IActionResult> CreateEvento(CreateEventCommand command)
         {
-            var UserId = await _mediator.Send(command);
+            var EventoId = await _mediator.Send(command);
 
-            return CreatedAtAction(nameof(GetUserById), new { id = UserId }, command);
+            return CreatedAtAction(nameof(GetEventoById), new { id = EventoId }, command);
         }
+
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateUsert(UpdateUserCommand command)
+        public async Task<IActionResult> UpdateEvento(UpdateEventCommand command)
         {
             //command.Id =id;
 
@@ -58,18 +64,16 @@ namespace Portal.API.Controllers
             return NoContent();
         }
 
-
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteUser(Guid id)
+        public async Task<IActionResult> DeleteEvento(Guid id)
         {
-            var command = new DeleteUserCommand(id);
+            var command = new DeleteEventCommand(id);
 
             var result = await _mediator.Send(command);
             if (!result.IsSuccess)
             {
                 return BadRequest(result.Message);
             }
-            //_userService.Delete(id);
             return Ok();
         }
     }

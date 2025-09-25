@@ -1,5 +1,10 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Portal.Application.Commands.CreatePostagemCommand;
+using Portal.Application.Commands.DeletePostagemCommand;
+using Portal.Application.Commands.UpdatePostagemCommand;
+using Portal.Application.Queries.GetAllPostagensQuery;
+using Portal.Application.Queries.GetPostagemQuery;
 
 namespace Portal.API.Controllers
 {
@@ -13,39 +18,40 @@ namespace Portal.API.Controllers
         }
 
         [HttpGet()]
-        public async Task<IActionResult> GetAllUsers()
+        public async Task<IActionResult> GetAllPostagens()
         {
+            var Query = new GetAllPostagensQuery();
 
-            var Query = new GetAllUsersQuery();
+            var postagens = await _mediator.Send(Query);
 
-            var users = await _mediator.Send(Query);
-
-            return Ok(users);
+            return Ok(postagens);
         }
+
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetUserById(Guid id)
+        public async Task<IActionResult> GetPostagemById(Guid id)
         {
-            var query = new GetUserQuery(id);
+            var query = new GetPostagemQuery(id);
 
-            var user = await _mediator.Send(query);
+            var postagem = await _mediator.Send(query);
 
-            if (!user.IsSuccess)
+            if (!postagem.IsSuccess)
             {
-                return BadRequest(user.Message);
+                return BadRequest(postagem.Message);
             }
 
-            return Ok(user);
+            return Ok(postagem);
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateUser(CreateUserCommand command)
+        public async Task<IActionResult> CreatePostagem(CreatePostagemCommand command)
         {
-            var UserId = await _mediator.Send(command);
+            var PostagemId = await _mediator.Send(command);
 
-            return CreatedAtAction(nameof(GetUserById), new { id = UserId }, command);
+            return CreatedAtAction(nameof(GetPostagemById), new { id = PostagemId }, command);
         }
+
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateUsert(UpdateUserCommand command)
+        public async Task<IActionResult> UpdatePostagem(UpdatePostagemCommand command)
         {
             //command.Id =id;
 
@@ -58,18 +64,17 @@ namespace Portal.API.Controllers
             return NoContent();
         }
 
-
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteUser(Guid id)
+        public async Task<IActionResult> DeletePostagem(Guid id)
         {
-            var command = new DeleteUserCommand(id);
+            var command = new DeletePostagemCommand(id);
 
             var result = await _mediator.Send(command);
             if (!result.IsSuccess)
             {
                 return BadRequest(result.Message);
             }
-            //_userService.Delete(id);
+
             return Ok();
         }
     }

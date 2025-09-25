@@ -1,5 +1,10 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Portal.Application.Commands.CreateArtigoCommand;
+using Portal.Application.Commands.DeleteArtigoCommand;
+using Portal.Application.Commands.UpdateArtigoCommand;
+using Portal.Application.Queries.GetAllArtigosQuery;
+using Portal.Application.Queries.GetArtigoQuery;
 
 namespace Portal.API.Controllers
 {
@@ -13,39 +18,40 @@ namespace Portal.API.Controllers
         }
 
         [HttpGet()]
-        public async Task<IActionResult> GetAllUsers()
+        public async Task<IActionResult> GetAllArtigos()
         {
+            var Query = new GetAllArtigosQuery();
 
-            var Query = new GetAllUsersQuery();
+            var artigos = await _mediator.Send(Query);
 
-            var users = await _mediator.Send(Query);
-
-            return Ok(users);
+            return Ok(artigos);
         }
+
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetUserById(Guid id)
+        public async Task<IActionResult> GetArtigoById(Guid id)
         {
-            var query = new GetUserQuery(id);
+            var query = new GetArtigoQuery(id);
 
-            var user = await _mediator.Send(query);
+            var artigo = await _mediator.Send(query);
 
-            if (!user.IsSuccess)
+            if (!artigo.IsSuccess)
             {
-                return BadRequest(user.Message);
+                return BadRequest(artigo.Message);
             }
 
-            return Ok(user);
+            return Ok(artigo);
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateUser(CreateUserCommand command)
+        public async Task<IActionResult> CreateArtigo(CreateArtigoCommand command)
         {
-            var UserId = await _mediator.Send(command);
+            var ArtigoId = await _mediator.Send(command);
 
-            return CreatedAtAction(nameof(GetUserById), new { id = UserId }, command);
+            return CreatedAtAction(nameof(GetArtigoById), new { id = ArtigoId }, command);
         }
+
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateUsert(UpdateUserCommand command)
+        public async Task<IActionResult> UpdateArtigo(UpdateArtigoCommand command)
         {
             //command.Id =id;
 
@@ -58,18 +64,16 @@ namespace Portal.API.Controllers
             return NoContent();
         }
 
-
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteUser(Guid id)
+        public async Task<IActionResult> DeleteArtigo(Guid id)
         {
-            var command = new DeleteUserCommand(id);
+            var command = new DeleteArtigoCommand(id);
 
             var result = await _mediator.Send(command);
             if (!result.IsSuccess)
             {
                 return BadRequest(result.Message);
             }
-            //_userService.Delete(id);
             return Ok();
         }
     }

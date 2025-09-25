@@ -1,12 +1,32 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Portal.Core.Entities;
 
-namespace Portal.Infraestructure.Configurations
+namespace Portal.Infrastructure.Configurations
 {
-    internal class PostagemConfiguration
+    public class PostagemConfiguration : IEntityTypeConfiguration<Postagem>
     {
+        public void Configure(EntityTypeBuilder<Postagem> builder)
+        {
+            // Nome da tabela
+            builder.ToTable("Postagens");
+
+            // Chave primária (herdada de BaseEntity)
+            builder.HasKey(p => p.Id);
+
+            // Propriedades
+            builder.Property(p => p.conteudo)
+                   .IsRequired()
+                   .HasMaxLength(2000);
+
+            builder.Property(p => p.IsDeleted)
+                   .HasDefaultValue(false);
+
+            // Relacionamento N:N com Comentario (ou 1:N dependendo do seu modelo)
+            builder.HasMany(p => p.comentarios)
+                   .WithOne() // assumindo que Comentario não possui referência de volta
+                   .HasForeignKey("PostagemId")
+                   .OnDelete(DeleteBehavior.Cascade);
+        }
     }
 }

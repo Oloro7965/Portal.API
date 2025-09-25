@@ -1,5 +1,10 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Portal.Application.Commands.CreateForumCommand;
+using Portal.Application.Commands.DeleteForumCommand;
+using Portal.Application.Commands.UpdateForumCommand;
+using Portal.Application.Queries.GetAllForumsQuery;
+using Portal.Application.Queries.GetForumQuery;
 
 namespace Portal.API.Controllers
 {
@@ -13,39 +18,40 @@ namespace Portal.API.Controllers
         }
 
         [HttpGet()]
-        public async Task<IActionResult> GetAllUsers()
+        public async Task<IActionResult> GetAllForuns()
         {
+            var Query = new GetAllForumsQuery();
 
-            var Query = new GetAllUsersQuery();
+            var foruns = await _mediator.Send(Query);
 
-            var users = await _mediator.Send(Query);
-
-            return Ok(users);
+            return Ok(foruns);
         }
+
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetUserById(Guid id)
+        public async Task<IActionResult> GetForumById(Guid id)
         {
-            var query = new GetUserQuery(id);
+            var query = new GetForumQuery(id);
 
-            var user = await _mediator.Send(query);
+            var forum = await _mediator.Send(query);
 
-            if (!user.IsSuccess)
+            if (!forum.IsSuccess)
             {
-                return BadRequest(user.Message);
+                return BadRequest(forum.Message);
             }
 
-            return Ok(user);
+            return Ok(forum);
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateUser(CreateUserCommand command)
+        public async Task<IActionResult> CreateForum(CreateForumCommand command)
         {
-            var UserId = await _mediator.Send(command);
+            var ForumId = await _mediator.Send(command);
 
-            return CreatedAtAction(nameof(GetUserById), new { id = UserId }, command);
+            return CreatedAtAction(nameof(GetForumById), new { id = ForumId }, command);
         }
+
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateUsert(UpdateUserCommand command)
+        public async Task<IActionResult> UpdateForum(UpdateForumCommand command)
         {
             //command.Id =id;
 
@@ -58,18 +64,17 @@ namespace Portal.API.Controllers
             return NoContent();
         }
 
-
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteUser(Guid id)
+        public async Task<IActionResult> DeleteForum(Guid id)
         {
-            var command = new DeleteUserCommand(id);
+            var command = new DeleteForumCommand(id);
 
             var result = await _mediator.Send(command);
             if (!result.IsSuccess)
             {
                 return BadRequest(result.Message);
             }
-            //_userService.Delete(id);
+
             return Ok();
         }
     }

@@ -31,4 +31,3 @@ namespace Portal.Application.ViewModels
         public List<Keywords> keywords { get; private set; }
     }
 }
-}

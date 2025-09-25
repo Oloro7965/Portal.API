@@ -1,12 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Portal.Core.Entities;
 
-namespace Portal.Infraestructure.Configurations
+namespace Portal.Infrastructure.Configurations
 {
-    internal class ComentarioConfiguration
+    public class ComentarioConfiguration : IEntityTypeConfiguration<Comentario>
     {
+        public void Configure(EntityTypeBuilder<Comentario> builder)
+        {
+            // Nome da tabela
+            builder.ToTable("Comentarios");
+
+            // Chave primária (herdada de BaseEntity)
+            builder.HasKey(c => c.Id);
+
+            // Propriedades
+            builder.Property(c => c.conteudo)
+                   .IsRequired()
+                   .HasMaxLength(1000);
+
+            builder.Property(c => c.IsDeleted)
+                   .HasDefaultValue(false);
+        }
     }
 }

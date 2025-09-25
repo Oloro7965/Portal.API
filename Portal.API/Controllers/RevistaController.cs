@@ -1,5 +1,10 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Portal.Application.Commands.CreateRevistaCommand;
+using Portal.Application.Commands.DeleteRevistaCommand;
+using Portal.Application.Commands.UpdateRevistaCommand;
+using Portal.Application.Queries.GetAllRevistasQuery;
+using Portal.Application.Queries.GetRevistaQuery;
 
 namespace Portal.API.Controllers
 {
@@ -13,39 +18,40 @@ namespace Portal.API.Controllers
         }
 
         [HttpGet()]
-        public async Task<IActionResult> GetAllUsers()
+        public async Task<IActionResult> GetAllRevistas()
         {
+            var Query = new GetAllRevistasQuery();
 
-            //var Query = new GetAllUsersQuery();
+            var revistas = await _mediator.Send(Query);
 
-            var users = await _mediator.Send(Query);
-
-            return Ok(users);
+            return Ok(revistas);
         }
+
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetUserById(Guid id)
+        public async Task<IActionResult> GetRevistaById(Guid id)
         {
-            //var query = new GetUserQuery(id);
+            var query = new GetRevistaQuery(id);
 
-            var user = await _mediator.Send(query);
+            var revista = await _mediator.Send(query);
 
-            if (!user.IsSuccess)
+            if (!revista.IsSuccess)
             {
-                return BadRequest(user.Message);
+                return BadRequest(revista.Message);
             }
 
-            return Ok(user);
+            return Ok(revista);
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateUser(CreateUserCommand command)
+        public async Task<IActionResult> CreateRevista(CreateRevistaCommand command)
         {
-            var UserId = await _mediator.Send(command);
+            var RevistaId = await _mediator.Send(command);
 
-            return CreatedAtAction(nameof(GetUserById), new { id = UserId }, command);
+            return CreatedAtAction(nameof(GetRevistaById), new { id = RevistaId }, command);
         }
+
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateUsert(UpdateUserCommand command)
+        public async Task<IActionResult> UpdateRevista(UpdateRevistaCommand command)
         {
             //command.Id =id;
 
@@ -58,18 +64,17 @@ namespace Portal.API.Controllers
             return NoContent();
         }
 
-
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteUser(Guid id)
+        public async Task<IActionResult> DeleteRevista(Guid id)
         {
-            var command = new DeleteUserCommand(id);
+            var command = new DeleteRevistaCommand(id);
 
             var result = await _mediator.Send(command);
             if (!result.IsSuccess)
             {
                 return BadRequest(result.Message);
             }
-            //_userService.Delete(id);
+
             return Ok();
         }
     }

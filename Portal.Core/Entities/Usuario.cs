@@ -38,7 +38,7 @@ namespace Portal.Core.Entities
         {
             email = Email;
 
-            senha = password;
+            senhaHash = password;
 
         }
 
