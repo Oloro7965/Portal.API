@@ -17,9 +17,9 @@ namespace Portal.Application.Commands.CreatePostagemCommand
         {
             _postagemRepository = postagemRepository;
         }
-        public async Task<ResultViewModel<object>> Handle(CreatePostagemCommand request, CancellationToken)
+        public async Task<ResultViewModel<object>> Handle(CreatePostagemCommand request, CancellationToken CancellationToken)
         {
-            var postagem = new Postagem(request.conteudo, request.comentarios);
+            var postagem = new Postagem(request.conteudo);
             await _postagemRepository.AddAsync(postagem);
             return ResultViewModel<object>.Success(new { postagem.Id });
         }

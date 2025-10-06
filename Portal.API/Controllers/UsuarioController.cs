@@ -6,6 +6,7 @@ using Portal.Application.Commands.UpdateUserCommand;
 using Portal.Application.Queries.GetAllUsersQuery;
 using Portal.Application.Queries.GetUsersQuery;
 
+
 namespace Portal.API.Controllers
 {
     public class UsuarioController : ControllerBase
@@ -55,9 +56,13 @@ namespace Portal.API.Controllers
         public async Task<IActionResult> UpdateUser(UpdateUserCommand command)
 
         {
-            //command.Id =id;
+            var result = await _mediator.Send(command);
+            if (!result.IsSuccess)
+            {
+                return BadRequest(result.Message);
+            }
 
-            return Ok();
+            return NoContent();
         }
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteUser(Guid id)

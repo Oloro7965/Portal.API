@@ -14,14 +14,8 @@ namespace Portal.Core.Entities
             this.titulo = titulo;
             this.area = area;
             this.descricao = descricao;
-        }
-
-        public Forum(string titulo, Earea area, string descricao, List<postagem> postagem)
-        {
-            this.titulo = titulo;
-            this.area = area;
-            this.descricao = descricao;
-            this.postagem = postagem;
+            postagem = new List<Postagem>();
+            IsDeleted = false;
         }
 
         public string titulo { get; private set; }

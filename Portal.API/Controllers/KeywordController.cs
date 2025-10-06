@@ -1,5 +1,10 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Portal.Application.Commands.CreateUserCommand;
+using Portal.Application.Commands.DeleteUserCommand;
+using Portal.Application.Commands.UpdateUserCommand;
+using Portal.Application.Queries.GetAllKeywordsQuery;
+using Portal.Application.Queries.GetKeywordsQuery;
 
 namespace Portal.API.Controllers
 {
@@ -16,7 +21,7 @@ namespace Portal.API.Controllers
         public async Task<IActionResult> GetAllUsers()
         {
 
-            var Query = new GetAllUsersQuery();
+            var Query = new GetAllKeywordsQuery();
 
             var users = await _mediator.Send(Query);
 
@@ -25,7 +30,7 @@ namespace Portal.API.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetUserById(Guid id)
         {
-            var query = new GetUserQuery(id);
+            var query = new GetKeywordsQuery(id);
 
             var user = await _mediator.Send(query);
 

@@ -25,4 +25,5 @@ namespace Portal.Application.Commands.CreateEventCommand
             await _eventRepository.AddAsync(evento);
             return new ResultViewModel<object>(evento);
         }
+    }
 }

@@ -18,7 +18,7 @@ namespace Portal.Application.Commands.CreateRevistaCommand
         {
             _revistaRepository = revistaRepository;
         }
-        public async Task<ResultViewModel<object>> Handle(CreateRevistaCommand request, CancellationToken)
+        public async Task<ResultViewModel<object>> Handle(CreateRevistaCommand request, CancellationToken CancellationToken) 
         {
             var revista = new Revista(
                 request.titulo,

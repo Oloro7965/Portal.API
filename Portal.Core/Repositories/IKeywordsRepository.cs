@@ -10,7 +10,7 @@ namespace Portal.Core.Repositories
     public interface IKeywordsRepository
     {
         Task<List<Keywords>> GetAllAsync();
-        Task<Keywords> GetByIdAsync(int id);
+        Task<Keywords> GetByIdAsync(Guid id);
         Task AddAsync(Keywords keywords);
         Task SaveChangesAsync();
     }

@@ -10,11 +10,13 @@ namespace Portal.Core.Entities
     {
         public string conteudo { get; private set; }
         public List<Comentario> comentarios { get; private set; }
+        public Guid IdUsuario { get; private set; }
+        public Usuario usuario { get; private set; }
 
-        public Postagem(string conteudo, List<Comentario> comentarios)
+        public Postagem(string conteudo)
         {
             this.conteudo = conteudo;
-            this.comentarios = comentarios;
+            this.comentarios = new List<Comentario>();
         }
         public bool IsDeleted { get; private set; }
         public void Delete()

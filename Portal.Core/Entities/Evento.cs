@@ -25,6 +25,7 @@ namespace Portal.Core.Entities
         public string local { get; private set; }
         public string area { get; private set; }
         public List<Usuario> Palestrante { get; private set; }
+        public string fotoevideos { get; set; } //fazer 
         public bool IsDeleted { get; private set; }
         public void Delete()
         {

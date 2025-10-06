@@ -6,6 +6,7 @@ using Portal.Application.Commands.UpdateForumCommand;
 using Portal.Application.Queries.GetAllForumsQuery;
 using Portal.Application.Queries.GetForumQuery;
 
+
 namespace Portal.API.Controllers
 {
     public class ForumController : ControllerBase

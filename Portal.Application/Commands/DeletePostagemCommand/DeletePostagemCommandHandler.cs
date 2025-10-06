@@ -11,7 +11,7 @@ namespace Portal.Application.Commands.DeletePostagemCommand
 {
     public class DeletePostagemCommandHandler : IRequestHandler<DeletePostagemCommand, ResultViewModel>
     {
-        private readonly IPostagemRepository _postagemRepository
+        private readonly IPostagemRepository _postagemRepository;
         public DeletePostagemCommandHandler(IPostagemRepository postagemRepository)
         {
             _postagemRepository = postagemRepository;

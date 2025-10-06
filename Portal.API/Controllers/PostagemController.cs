@@ -6,6 +6,7 @@ using Portal.Application.Commands.UpdatePostagemCommand;
 using Portal.Application.Queries.GetAllPostagensQuery;
 using Portal.Application.Queries.GetPostagemQuery;
 
+
 namespace Portal.API.Controllers
 {
     public class PostagemController : ControllerBase
