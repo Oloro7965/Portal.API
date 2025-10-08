@@ -35,26 +35,39 @@ namespace Portal.Infrastructure.Configurations
             builder.Property(a => a.IsDeleted)
                    .HasDefaultValue(false);
 
-            // Relacionamentos
-           /* builder
-                .HasMany(a => a.autores)
-                .WithMany(u => u.Artigos) // supondo que Usuario tem lista de Artigos
-                .UsingEntity<Dictionary<string, object>>(
-                    "ArtigoUsuario",
-                    j => j.HasOne<Usuario>().WithMany().HasForeignKey("UsuarioId").OnDelete(DeleteBehavior.Cascade),
-                    j => j.HasOne<artigo>().WithMany().HasForeignKey("ArtigoId").OnDelete(DeleteBehavior.Cascade),
-                    j => j.HasKey("ArtigoId", "UsuarioId")
-                );
+            builder.HasMany(a => a.keywords)
+                .WithMany(k => k.artigos)
+                 .UsingEntity<Dictionary<string, object>>(
+                 "ArtigoKeyword",
+                 j => j.HasOne<Keywords>()
+                 .WithMany()
+                 .HasForeignKey("KeywordId")
+                 .OnDelete(DeleteBehavior.Restrict),
+                  j => j.HasOne<artigo>()
+                 .WithMany()
+                 .HasForeignKey("ArtigoId")
+                 .OnDelete(DeleteBehavior.Restrict));
 
-            builder
-                .HasMany(a => a.keywords)
-                .WithMany(k => k.Artigos) // supondo que Keywords tem lista de Artigos
-                .UsingEntity<Dictionary<string, object>>(
-                    "ArtigoKeyword",
-                    j => j.HasOne<Keywords>().WithMany().HasForeignKey("KeywordId").OnDelete(DeleteBehavior.Cascade),
-                    j => j.HasOne<artigo>().WithMany().HasForeignKey("ArtigoId").OnDelete(DeleteBehavior.Cascade),
-                    j => j.HasKey("ArtigoId", "KeywordId")
-                );*/
+            // Relacionamentos
+            /* builder
+                 .HasMany(a => a.autores)
+                 .WithMany(u => u.Artigos) // supondo que Usuario tem lista de Artigos
+                 .UsingEntity<Dictionary<string, object>>(
+                     "ArtigoUsuario",
+                     j => j.HasOne<Usuario>().WithMany().HasForeignKey("UsuarioId").OnDelete(DeleteBehavior.Cascade),
+                     j => j.HasOne<artigo>().WithMany().HasForeignKey("ArtigoId").OnDelete(DeleteBehavior.Cascade),
+                     j => j.HasKey("ArtigoId", "UsuarioId")
+                 );
+
+             builder
+                 .HasMany(a => a.keywords)
+                 .WithMany(k => k.Artigos) // supondo que Keywords tem lista de Artigos
+                 .UsingEntity<Dictionary<string, object>>(
+                     "ArtigoKeyword",
+                     j => j.HasOne<Keywords>().WithMany().HasForeignKey("KeywordId").OnDelete(DeleteBehavior.Cascade),
+                     j => j.HasOne<artigo>().WithMany().HasForeignKey("ArtigoId").OnDelete(DeleteBehavior.Cascade),
+                     j => j.HasKey("ArtigoId", "KeywordId")
+                 );*/
         }
     }
 }

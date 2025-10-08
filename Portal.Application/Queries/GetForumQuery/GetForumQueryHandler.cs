@@ -23,7 +23,7 @@ namespace Portal.Application.Queries.GetForumQuery
             {
                 return ResultViewModel<ForumViewModel>.Error("Fórum não encontrado.");
             }
-            var ForumDetailViewModel = new ForumViewModel(forum.titulo, forum.area, forum.descricao, forum.postagem, forum.IsDeleted);
+            var ForumDetailViewModel = new ForumViewModel(forum.titulo, forum.area, forum.descricao, forum.postagens, forum.IsDeleted);
             return ResultViewModel<ForumViewModel>.Success(ForumDetailViewModel);
         }
     }

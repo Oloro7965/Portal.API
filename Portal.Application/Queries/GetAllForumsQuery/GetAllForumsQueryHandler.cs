@@ -20,7 +20,7 @@ namespace Portal.Application.Queries.GetAllForumsQuery
         public async Task<ResultViewModel<List<ForumViewModel>>> Handle(GetAllForumsQuery request, CancellationToken cancellationToken)
         {
             var forums = await _forumRepository.GetAllAsync();
-            var forumViewModel = forums.Select(f => new ForumViewModel(f.titulo, f.area, f.descricao, f.postagem, f.IsDeleted)).ToList();
+            var forumViewModel = forums.Select(f => new ForumViewModel(f.titulo, f.area, f.descricao, f.postagens, f.IsDeleted)).ToList();
             return ResultViewModel<List<ForumViewModel>>.Success(forumViewModel);
         }
     }

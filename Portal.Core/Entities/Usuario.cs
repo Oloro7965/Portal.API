@@ -9,16 +9,16 @@ namespace Portal.Core.Entities
 {
     public class Usuario:BaseEntity
     {
-        public Usuario(string nomeCompleto, string email, string senhaHash, List<artigo> artigos, List<Postagem> postagens, List<Comentario> comentarios, EtipoUsuario tipoUsuario, List<Revista> revistasPublicadas)
+        public Usuario(string nomeCompleto, string email, string senhaHash, EtipoUsuario tipoUsuario)
         {
             NomeCompleto = nomeCompleto;
             this.email = email;
             this.senhaHash = senhaHash;
-            this.artigos = artigos;
-            this.postagens = postagens;
-            this.comentarios = comentarios;
+            this.artigos = new List<artigo>();
+            this.postagens = new List<Postagem>();
+            this.comentarios = new List<Comentario>();
             this.tipoUsuario = tipoUsuario;
-            RevistasPublicadas = revistasPublicadas;
+            RevistasPublicadas = new List<Revista>();
         }
 
         public string NomeCompleto { get; private set; }
@@ -28,7 +28,9 @@ namespace Portal.Core.Entities
         public List<Postagem> postagens { get; private set; }
         public List<Comentario> comentarios { get; private set; }
         public EtipoUsuario tipoUsuario { get; private set; }
+        public List<Evento> EventosComoPalestrante { get; private set; }
         public List<Revista> RevistasPublicadas { get; private set; }
+
         public bool IsDeleted { get; private set; }
         public void Delete()
         {

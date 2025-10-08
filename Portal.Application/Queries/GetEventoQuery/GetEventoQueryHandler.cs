@@ -24,7 +24,7 @@ namespace Portal.Application.Queries.GetEventoQuery
                 return ResultViewModel<EventoViewModel>.Error("Evento não encontrado.");
             }
             var EventoDetailViewModel = new EventoViewModel(evento.titulo, evento.descricao, evento.data,
-                evento.local, evento.area, evento.Palestrante, evento.IsDeleted);
+                evento.local, evento.area.ToString(), evento.Palestrantes);
 
             return ResultViewModel<EventoViewModel>.Success(EventoDetailViewModel);
         }

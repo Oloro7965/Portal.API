@@ -27,9 +27,8 @@ namespace Portal.Application.Commands.CreateRevistaCommand
                 request.capa,
                 request.publicacao,
                 request.arquivopdf,
-                request.autores,
-                request.area,
-                request.keywords
+                request.area
+                
             );
             await _revistaRepository.AddAsync(revista);
             return ResultViewModel<object>.Success(new { revista.Id });

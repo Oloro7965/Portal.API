@@ -38,8 +38,8 @@ namespace Portal.Infrastructure.Configurations
                    .WithMany(a => a.autores) // já configurado no ArtigoConfiguration
                    .UsingEntity<Dictionary<string, object>>(
                        "ArtigoUsuario",
-                       j => j.HasOne<artigo>().WithMany().HasForeignKey("ArtigoId").OnDelete(DeleteBehavior.Cascade),
-                       j => j.HasOne<Usuario>().WithMany().HasForeignKey("UsuarioId").OnDelete(DeleteBehavior.Cascade),
+                       j => j.HasOne<artigo>().WithMany().HasForeignKey("ArtigoId").OnDelete(DeleteBehavior.Restrict),
+                       j => j.HasOne<Usuario>().WithMany().HasForeignKey("UsuarioId").OnDelete(DeleteBehavior.Restrict),
                        j => j.HasKey("ArtigoId", "UsuarioId")
                    );
 
@@ -55,19 +55,51 @@ namespace Portal.Infrastructure.Configurations
 
             // Relacionamentos N:N com Revistas
             builder.HasMany(u => u.RevistasPublicadas)
-                   .WithMany(r => r.autores) // já configurado no RevistaConfiguration
+                .WithMany(r => r.autores)
                    .UsingEntity<Dictionary<string, object>>(
-                       "RevistaUsuario",
-                       j => j.HasOne<Revista>().WithMany().HasForeignKey("RevistaId").OnDelete(DeleteBehavior.Cascade),
-                       j => j.HasOne<Usuario>().WithMany().HasForeignKey("UsuarioId").OnDelete(DeleteBehavior.Cascade),
-                       j => j.HasKey("RevistaId", "UsuarioId")
-                   );
+                    "RevistaUsuario", // nome da tabela de junção
+                j => j
+                .HasOne<Revista>()
+                .WithMany()
+                .HasForeignKey("RevistaId")
+                .OnDelete(DeleteBehavior.Restrict),
+                j => j
+                .HasOne<Usuario>()
+                .WithMany()
+                .HasForeignKey("UsuarioId")
+                .OnDelete(DeleteBehavior.Restrict),
+            j =>
+            {
+                j.HasKey("RevistaId", "UsuarioId");
+                j.ToTable("RevistaUsuario");
+            });
 
+            builder.HasMany(u => u.EventosComoPalestrante)
+                .WithMany(e => e.Palestrantes)
+                .UsingEntity<Dictionary<string, object>>(
+                "EventoUsuario",
+                j => j.HasOne<Evento>()
+                .WithMany()
+                .HasForeignKey("EventoId")
+                .OnDelete(DeleteBehavior.Restrict),
+                j => j.HasOne<Usuario>()
+                .WithMany()
+                .HasForeignKey("UsuarioId")
+                .OnDelete(DeleteBehavior.Restrict),
+                j =>
+            {
+                j.HasKey("EventoId", "UsuarioId");
+                j.ToTable("EventoUsuario");
+            });
+            builder.HasMany(u => u.postagens)
+                   .WithOne(x => x.usuario) // Comentario não possui referência de volta
+                   .HasForeignKey(x => x.IdUsuario)
+                   .OnDelete(DeleteBehavior.Restrict);
             // Relacionamentos 1:N com Comentarios
             builder.HasMany(u => u.comentarios)
-                   .WithOne() // Comentario não possui referência de volta
-                   .HasForeignKey("UsuarioId")
-                   .OnDelete(DeleteBehavior.Cascade);
+                   .WithOne(x => x.Usuario) // Comentario não possui referência de volta
+                   .HasForeignKey(x => x.UserId)
+                   .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

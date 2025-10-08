@@ -11,7 +11,9 @@ namespace Portal.Core.Entities
        public Keywords(string titulo)
         {
             this.titulo = titulo;
+            artigos = new List<artigo>();
         }
         public string titulo { get; private set; }
+        public List<artigo> artigos { get; private set; }
     }
 }

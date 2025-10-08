@@ -18,7 +18,7 @@ namespace Portal.Application.Commands.UpdateEventCommand
             {
                 return ResultViewModel.Error("Evento não encontrado.");
             }
-            evento.Update(request.Titulo, request.Descricao, request.Data, request.Local, request.Area, request.PalestranteIds);
+            evento.Update(request.Titulo, request.Descricao, request.Data, request.Local, request.Area, request.Palestrantes);
             await _eventRepository.SaveChangesAsync();
             return ResultViewModel.Success();
         }

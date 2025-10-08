@@ -24,9 +24,7 @@ namespace Portal.Application.Commands.CreateArtigoCommand
                 request.Descricao,
                 request.DataPublicacao,
                 request.ArquivoPdf,
-                new List<Usuario>(),
-                request.area,
-                new List<Keywords>()
+                request.area
             );
 
             await _artigoRepository.AddAsync(artigo);

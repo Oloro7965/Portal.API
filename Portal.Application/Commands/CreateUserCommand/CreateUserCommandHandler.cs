@@ -19,7 +19,7 @@ namespace Portal.Application.Commands.CreateUserCommand
         }
         public async Task<ResultViewModel<object>> Handle(CreateUserCommand request, CancellationToken cancellationToken)
         {
-            var usuario = new Usuario(request.NomeCompleto, request.email, request.senhaHash, request.artigos, request.postagens, request.comentarios, request.tipoUsuario, request.RevistasPublicadas);
+            var usuario = new Usuario(request.NomeCompleto, request.email, request.senhaHash,request.tipoUsuario);
             await _usuarioRepository.AddAsync(usuario);
             return ResultViewModel<object>.Success( new { usuario.Id});
         }

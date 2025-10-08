@@ -24,9 +24,9 @@ namespace Portal.Infrastructure.Configurations
 
             // Relacionamento N:N com Comentario (ou 1:N dependendo do seu modelo)
             builder.HasMany(p => p.comentarios)
-                   .WithOne() // assumindo que Comentario não possui referência de volta
-                   .HasForeignKey("PostagemId")
-                   .OnDelete(DeleteBehavior.Cascade);
+                   .WithOne(p=>p.postagem) // assumindo que Comentario não possui referência de volta
+                   .HasForeignKey(p=>p.PostagemId)
+                   .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

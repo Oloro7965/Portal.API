@@ -20,7 +20,8 @@ namespace Portal.Application.Queries.GetAllEventosQuery
         public async Task<ResultViewModel<List<EventoViewModel>>> Handle(GetAllEventosQuery request, CancellationToken cancellationToken)
         {
             var eventos = await _eventRepository.GetAllAsync();
-            var eventoViewModel = eventos.Select(e => new EventoViewModel(e.titulo, e.descricao, e.data, e.local, e.area, e.Palestrante ,e.IsDeleted)).ToList();
+            var eventoViewModel = eventos.Select(e => new EventoViewModel(e.titulo, e.descricao, 
+                e.data, e.local, e.area.ToString(), e.Palestrantes)).ToList();
             return ResultViewModel<List<EventoViewModel>>.Success(eventoViewModel);
         }
     }

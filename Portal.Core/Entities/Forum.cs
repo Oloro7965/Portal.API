@@ -14,25 +14,25 @@ namespace Portal.Core.Entities
             this.titulo = titulo;
             this.area = area;
             this.descricao = descricao;
-            postagem = new List<Postagem>();
+            postagens = new List<Postagem>();
             IsDeleted = false;
         }
 
         public string titulo { get; private set; }
         public Earea area { get; private set; }
         public string descricao { get; private set; }
-        public List<Postagem> postagem { get; private set; }
+        public List<Postagem> postagens { get; private set; }
         public bool IsDeleted { get; private set; }
         public void Delete()
         {
             IsDeleted = true;
         }
-        public void Update(string Titulo, Earea Area, string Descricao, List<Postagem> Postagem)
+        public void Update(string Titulo, Earea Area, string Descricao, List<Postagem> Postagens)
         {
             titulo = Titulo;
             area = Area;
             descricao = Descricao;
-            postagem = Postagem;
+            postagens = Postagens;
         }
     }
 }
