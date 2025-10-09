@@ -9,6 +9,8 @@ using Portal.Application.Queries.GetUsersQuery;
 
 namespace Portal.API.Controllers
 {
+    [ApiController]
+    [Route("api/usuario")]
     public class UsuarioController : ControllerBase
     {
         private readonly IMediator _mediator;

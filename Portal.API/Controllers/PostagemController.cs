@@ -9,6 +9,8 @@ using Portal.Application.Queries.GetPostagemQuery;
 
 namespace Portal.API.Controllers
 {
+    [ApiController]
+    [Route("api/postagem")]
     public class PostagemController : ControllerBase
     {
         private readonly IMediator _mediator;

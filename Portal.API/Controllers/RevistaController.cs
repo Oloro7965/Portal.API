@@ -8,6 +8,8 @@ using Portal.Application.Queries.GetRevistaQuery;
 
 namespace Portal.API.Controllers
 {
+    [ApiController]
+    [Route("api/revista")]
     public class RevistaController : ControllerBase
     {
         private readonly IMediator _mediator;

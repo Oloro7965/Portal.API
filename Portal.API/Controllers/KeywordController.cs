@@ -8,6 +8,8 @@ using Portal.Application.Queries.GetKeywordsQuery;
 
 namespace Portal.API.Controllers
 {
+    [ApiController]
+    [Route("api/keyword")]
     public class KeywordController : ControllerBase
     {
         private readonly IMediator _mediator;

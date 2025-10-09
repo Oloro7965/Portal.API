@@ -7,7 +7,9 @@ using Portal.Application.Queries.GetAllArtigosQuery;
 using Portal.Application.Queries.GetArtigoQuery;
 
 namespace Portal.API.Controllers
-{
+{   
+[ApiController]
+[Route("api/artigos")]
     public class ArtigosController : Controller
     {
         private readonly IMediator _mediator;

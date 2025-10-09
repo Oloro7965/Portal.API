@@ -9,6 +9,8 @@ using Portal.Application.Queries.GetForumQuery;
 
 namespace Portal.API.Controllers
 {
+    [ApiController]
+    [Route("api/forum")]
     public class ForumController : ControllerBase
     {
         private readonly IMediator _mediator;

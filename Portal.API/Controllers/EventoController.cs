@@ -8,6 +8,8 @@ using Portal.Application.Queries.GetEventoQuery;
 
 namespace Portal.API.Controllers
 {
+    [ApiController]
+    [Route("api/evento")]
     public class EventoController : ControllerBase
     {
         private readonly IMediator _mediator;
