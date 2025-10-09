@@ -25,6 +25,14 @@ namespace Portal.Infraestructure.Persistance.Repositories
         {
             return await _dbcontext.Usuarios.Where(u => u.IsDeleted.Equals(false)).ToListAsync();
         }
+
+        public async Task<Usuario> GetByEmailAsync(string Email)
+        {
+            return await _dbcontext.Usuarios.Where(c => c.email == Email)
+
+            .SingleOrDefaultAsync();
+        }
+
         public async Task<Usuario> GetByIdAsync(Guid id)
         {
             return await _dbcontext.Usuarios.Where(c => c.Id == id).SingleOrDefaultAsync();

@@ -1,10 +1,12 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Portal.Application.Commands.CreateUserCommand;
 using Portal.Application.Commands.DeleteUserCommand;
 using Portal.Application.Commands.UpdateUserCommand;
 using Portal.Application.Queries.GetAllUsersQuery;
 using Portal.Application.Queries.GetUsersQuery;
+using Portal.Application.Queries.LoginQuery;
 
 
 namespace Portal.API.Controllers
@@ -28,7 +30,7 @@ namespace Portal.API.Controllers
 
             var users = await _mediator.Send(Query);
 
-            return Ok();
+            return Ok(users);
         }
         [HttpGet("{id}")]
         public async Task<IActionResult> GetUserById(Guid id)
@@ -42,7 +44,7 @@ namespace Portal.API.Controllers
                 return BadRequest(user.Message);
             }
 
-            return Ok();
+            return Ok(user);
         }
 
         [HttpPost]
@@ -52,7 +54,49 @@ namespace Portal.API.Controllers
 
             return CreatedAtAction(nameof(GetUserById), new { id = UserId }, command);
 
-            return Ok();
+        }
+        [HttpPost("Login")]
+        [AllowAnonymous]
+        public async Task<IActionResult> Login(LoginQuery query)
+        {
+            //command.Id =id;
+
+            var result = await _mediator.Send(query);
+            if (!result.IsSuccess)
+            {
+                return Unauthorized(new
+                {
+                    success = false,
+                    message = result.Message,
+                });
+            }
+            var token = result.Extra as string;
+            var cookieOptions = new CookieOptions
+            {
+                HttpOnly = true,
+                Secure = true,
+                SameSite = SameSiteMode.None,
+                Path = "/",
+                Expires = DateTime.UtcNow.AddHours(2),
+                IsEssential = true,
+            };
+            Response.Cookies.Append("AuthToken", token, cookieOptions);
+            return Ok(new
+            {
+                success = true,
+                message = result.Message,
+                usuario = result.Data
+            });
+        }
+        [HttpPost("Logout")]
+        public async Task<IActionResult> Logout()
+        {
+            if (Request.Cookies.ContainsKey("AuthToken"))
+            {
+                Response.Cookies.Delete("AuthToken");
+            }
+            await Task.CompletedTask;
+            return Ok(new { message = "Logout realizado com sucesso" });
         }
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateUser(UpdateUserCommand command)

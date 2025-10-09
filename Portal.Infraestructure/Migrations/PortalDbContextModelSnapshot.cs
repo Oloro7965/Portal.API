@@ -34,7 +34,7 @@ namespace Portal.Infraestructure.Migrations
 
                     b.HasIndex("KeywordId");
 
-                    b.ToTable("ArtigoKeyword");
+                    b.ToTable("ArtigoKeyword", (string)null);
                 });
 
             modelBuilder.Entity("ArtigoUsuario", b =>
@@ -49,7 +49,7 @@ namespace Portal.Infraestructure.Migrations
 
                     b.HasIndex("UsuarioId");
 
-                    b.ToTable("ArtigoUsuario");
+                    b.ToTable("ArtigoUsuario", (string)null);
                 });
 
             modelBuilder.Entity("EventoUsuario", b =>
@@ -186,7 +186,7 @@ namespace Portal.Infraestructure.Migrations
 
                     b.HasIndex("RevistaId");
 
-                    b.ToTable("keywords");
+                    b.ToTable("keywords", (string)null);
                 });
 
             modelBuilder.Entity("Portal.Core.Entities.Postagem", b =>
@@ -264,7 +264,7 @@ namespace Portal.Infraestructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Revistas");
+                    b.ToTable("Revistas", (string)null);
                 });
 
             modelBuilder.Entity("Portal.Core.Entities.Usuario", b =>
@@ -298,7 +298,7 @@ namespace Portal.Infraestructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Usuarios");
+                    b.ToTable("Usuarios", (string)null);
                 });
 
             modelBuilder.Entity("Portal.Core.Entities.artigo", b =>
@@ -335,7 +335,7 @@ namespace Portal.Infraestructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Artigos");
+                    b.ToTable("Artigos", (string)null);
                 });
 
             modelBuilder.Entity("RevistaUsuario", b =>

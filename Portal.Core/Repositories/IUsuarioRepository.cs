@@ -11,6 +11,7 @@ namespace Portal.Core.Repositories
     {
         Task<List<Usuario>> GetAllAsync();
         Task<Usuario> GetByIdAsync(Guid id);
+        Task<Usuario> GetByEmailAsync(string Email);
         Task AddAsync(Usuario usuario);
         Task SaveChangesAsync();
         
