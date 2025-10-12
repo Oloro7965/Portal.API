@@ -17,7 +17,6 @@ namespace Portal.Application.Commands.CreateEventCommand
         public DateTime Data { get; set; }
         public string Local { get; set; }
         public Earea Area { get; set; }
-        public List<Usuario> PalestranteIds { get; set; }
 
     }
 }

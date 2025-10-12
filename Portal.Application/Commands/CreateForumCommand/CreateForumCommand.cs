@@ -15,6 +15,5 @@ namespace Portal.Application.Commands.CreateForumCommand
         public string titulo { get; set; }
         public Earea area { get; set; }
         public string descricao { get; set; }
-        public List<Postagem> postagem { get; set; }
     }
 }

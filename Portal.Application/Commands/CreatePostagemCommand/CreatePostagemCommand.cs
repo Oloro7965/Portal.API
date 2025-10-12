@@ -12,6 +12,5 @@ namespace Portal.Application.Commands.CreatePostagemCommand
     public class CreatePostagemCommand : IRequest<ResultViewModel<object>>
     {
         public string conteudo { get; set; }
-        public List<Comentario> comentarios { get; set; }
     }
 }
