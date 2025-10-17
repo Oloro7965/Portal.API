@@ -1,7 +1,10 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Portal.Application.Commands.CreateKeywordCommand;
 using Portal.Application.Commands.CreateUserCommand;
+using Portal.Application.Commands.DeleteKeywordCommand;
 using Portal.Application.Commands.DeleteUserCommand;
+using Portal.Application.Commands.UpdateKeywordCommand;
 using Portal.Application.Commands.UpdateUserCommand;
 using Portal.Application.Queries.GetAllKeywordsQuery;
 using Portal.Application.Queries.GetKeywordsQuery;
@@ -20,7 +23,7 @@ namespace Portal.API.Controllers
         }
 
         [HttpGet()]
-        public async Task<IActionResult> GetAllUsers()
+        public async Task<IActionResult> GetAllKeywords()
         {
 
             var Query = new GetAllKeywordsQuery();
@@ -30,29 +33,29 @@ namespace Portal.API.Controllers
             return Ok(users);
         }
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetUserById(Guid id)
+        public async Task<IActionResult> GetKeywordById(Guid id)
         {
             var query = new GetKeywordsQuery(id);
 
-            var user = await _mediator.Send(query);
+            var keyword = await _mediator.Send(query);
 
-            if (!user.IsSuccess)
+            if (!keyword.IsSuccess)
             {
-                return BadRequest(user.Message);
+                return BadRequest(keyword.Message);
             }
 
-            return Ok(user);
+            return Ok(keyword);
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateUser(CreateUserCommand command)
+        public async Task<IActionResult> CreateUser(CreateKeywordCommand command)
         {
             var UserId = await _mediator.Send(command);
 
-            return CreatedAtAction(nameof(GetUserById), new { id = UserId }, command);
+            return CreatedAtAction(nameof(GetKeywordById), new { id = UserId }, command);
         }
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateUsert(UpdateUserCommand command)
+        public async Task<IActionResult> UpdateKeyword(UpdateKeywordCommand command)
         {
             //command.Id =id;
 
@@ -67,9 +70,9 @@ namespace Portal.API.Controllers
 
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteUser(Guid id)
+        public async Task<IActionResult> DeleteKeyword(Guid id)
         {
-            var command = new DeleteUserCommand(id);
+            var command = new DeleteKeywordCommand(id);
 
             var result = await _mediator.Send(command);
             if (!result.IsSuccess)

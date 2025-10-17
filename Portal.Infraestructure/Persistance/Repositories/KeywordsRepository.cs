@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Portal.Infraestructure.Persistance.Repositories
@@ -26,7 +27,7 @@ namespace Portal.Infraestructure.Persistance.Repositories
 
         public async Task<List<Keywords>> GetAllAsync()
         {
-            return await _dbcontext.keywords.ToListAsync();
+            return await _dbcontext.keywords.Where(u => u.IsDeleted.Equals(false)).ToListAsync();
         }
 
         public async Task<Keywords> GetByIdAsync(Guid id)
@@ -34,6 +35,13 @@ namespace Portal.Infraestructure.Persistance.Repositories
 
             return await _dbcontext.keywords.Where(c => c.Id == id).SingleOrDefaultAsync();
 
+        }
+
+        public async Task<List<Keywords>> GetByIdsAsync(List<Guid> ids)
+        {
+            return await _dbcontext.keywords
+            .Where(k => ids.Contains(k.Id))
+            .ToListAsync();
         }
 
         public async Task SaveChangesAsync()

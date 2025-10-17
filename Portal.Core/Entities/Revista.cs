@@ -9,7 +9,8 @@ namespace Portal.Core.Entities
 {
     public class Revista:BaseEntity
     {
-        public Revista(string titulo, string descricao, string edicao, string capa, DateTime publicacao, Earea area)
+        private Revista() { }
+        public Revista(string titulo, string descricao, string edicao, string capa, DateTime publicacao, Earea area,List<Keywords>? keywords = null)
         {
             this.titulo = titulo;
             this.descricao = descricao;
@@ -19,7 +20,7 @@ namespace Portal.Core.Entities
             //this.arquivopdf = arquivopdf;
             this.autores = new List<Usuario>();
             this.area = area;
-            this.keywords = new List<Keywords>();
+            this.keywords = keywords ?? new List<Keywords>();
         }
 
         public string titulo { get; private set; }

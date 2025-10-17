@@ -41,37 +41,20 @@ namespace Portal.Infrastructure.Configurations
             builder.Property(r => r.IsDeleted)
                    .HasDefaultValue(false);
 
-            // Relacionamento N:N com Usuario (autores)
-            /* builder.HasMany(r => r.autores)
-                   .WithMany(u => u.Revistas) // assumindo que Usuario tem lista de Revistas
-                   .UsingEntity<Dictionary<string, object>>(
-                       "RevistaUsuario",
-                       j => j.HasOne<Usuario>()
-                             .WithMany()
-                             .HasForeignKey("UsuarioId")
-                             .OnDelete(DeleteBehavior.Cascade),
-                       j => j.HasOne<Revista>()
-                             .WithMany()
-                             .HasForeignKey("RevistaId")
-                             .OnDelete(DeleteBehavior.Cascade),
-                       j => j.HasKey("RevistaId", "UsuarioId")
-                   );
-
-            // Relacionamento N:N com Keywords
             builder.HasMany(r => r.keywords)
-                   .WithMany(k => k.Revistas) // assumindo que Keywords tem lista de Revistas
+                   .WithMany(k => k.revistas) // assumindo que Keywords tem lista de Revistas
                    .UsingEntity<Dictionary<string, object>>(
                        "RevistaKeyword",
                        j => j.HasOne<Keywords>()
                              .WithMany()
                              .HasForeignKey("KeywordId")
-                             .OnDelete(DeleteBehavior.Cascade),
+                             .OnDelete(DeleteBehavior.Restrict),
                        j => j.HasOne<Revista>()
                              .WithMany()
                              .HasForeignKey("RevistaId")
-                             .OnDelete(DeleteBehavior.Cascade),
+                             .OnDelete(DeleteBehavior.Restrict),
                        j => j.HasKey("RevistaId", "KeywordId")
-                   );*/
+                   );
         }
     }
 }
