@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Portal.Application.Commands.CreateArtigoCommand;
 using Portal.Application.Commands.DeleteArtigoCommand;
@@ -8,8 +9,8 @@ using Portal.Application.Queries.GetArtigoQuery;
 
 namespace Portal.API.Controllers
 {   
-[ApiController]
-[Route("api/artigos")]
+    [ApiController]
+    [Route("api/artigos")]
     public class ArtigosController : Controller
     {
         private readonly IMediator _mediator;
@@ -19,63 +20,61 @@ namespace Portal.API.Controllers
             _mediator = mediator;
         }
 
-        [HttpGet()]
+        // 📘 Público
+        [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> GetAllArtigos()
         {
-            var Query = new GetAllArtigosQuery();
-
-            var artigos = await _mediator.Send(Query);
-
+            var query = new GetAllArtigosQuery();
+            var artigos = await _mediator.Send(query);
             return Ok(artigos);
         }
 
+        // 📘 Público
         [HttpGet("{id}")]
+        [AllowAnonymous]
         public async Task<IActionResult> GetArtigoById(Guid id)
         {
             var query = new GetArtigoQuery(id);
-
             var artigo = await _mediator.Send(query);
 
             if (!artigo.IsSuccess)
-            {
                 return BadRequest(artigo.Message);
-            }
 
             return Ok(artigo);
         }
 
+        // ✏️ Somente professor ou admin
         [HttpPost]
+        [Authorize(Roles = "professor,admin")]
         public async Task<IActionResult> CreateArtigo(CreateArtigoCommand command)
         {
-            var ArtigoId = await _mediator.Send(command);
-
-            return CreatedAtAction(nameof(GetArtigoById), new { id = ArtigoId }, command);
+            var artigoId = await _mediator.Send(command);
+            return CreatedAtAction(nameof(GetArtigoById), new { id = artigoId }, command);
         }
 
+        // ✏️ Somente professor ou admin
         [HttpPut("{id}")]
+        [Authorize(Roles = "professor,admin")]
         public async Task<IActionResult> UpdateArtigo(UpdateArtigoCommand command)
         {
-            //command.Id =id;
-
             var result = await _mediator.Send(command);
             if (!result.IsSuccess)
-            {
                 return BadRequest(result.Message);
-            }
 
             return NoContent();
         }
 
+        // 🗑️ Somente professor ou admin
         [HttpDelete("{id}")]
+        [Authorize(Roles = "professor,admin")]
         public async Task<IActionResult> DeleteArtigo(Guid id)
         {
             var command = new DeleteArtigoCommand(id);
-
             var result = await _mediator.Send(command);
             if (!result.IsSuccess)
-            {
                 return BadRequest(result.Message);
-            }
+
             return Ok();
         }
     }

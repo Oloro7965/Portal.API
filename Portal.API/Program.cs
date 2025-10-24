@@ -18,6 +18,13 @@ var connectionString = builder.Configuration.GetConnectionString("Default");
 builder.Services.AddDbContext<PortalDbContext>(options => options.UseSqlServer(connectionString));
 builder.Services.AddMediatR(opt => opt.RegisterServicesFromAssemblyContaining(typeof(CreateUserCommand)));
 builder.Services.AddScoped<IAuthService, AuthService>();
+var jwtKey = configuration["Jwt:Key"];
+if (string.IsNullOrWhiteSpace(jwtKey))
+{
+    throw new InvalidOperationException("Configuration value 'Jwt:Key' is missing or empty.");
+}
+var signingKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey));
+
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(o =>
 {
     o.TokenValidationParameters = new TokenValidationParameters
@@ -28,7 +35,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
         ValidateIssuerSigningKey = true,
         ValidIssuer = configuration["Jwt:Issuer"],
         ValidAudience = configuration["Jwt:Audience"],
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:Key"]))
+        IssuerSigningKey = signingKey
     };
     o.Events = new JwtBearerEvents
     {
@@ -45,14 +52,14 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
             context.HandleResponse();
             context.Response.StatusCode = StatusCodes.Status401Unauthorized;
             context.Response.ContentType = "application/json";
-            var result = JsonSerializer.Serialize(new { message = "Usuário não autenticado" });
+            var result = JsonSerializer.Serialize(new { message = "Usuï¿½rio nï¿½o autenticado" });
             return context.Response.WriteAsync(result);
         },
         OnForbidden = context =>
         {
             context.Response.StatusCode = StatusCodes.Status403Forbidden;
             context.Response.ContentType = "application/json";
-            var result = JsonSerializer.Serialize(new { message = "Você não tem permissão para acessar este recurso." });
+            var result = JsonSerializer.Serialize(new { message = "Vocï¿½ nï¿½o tem permissï¿½o para acessar este recurso." });
             return context.Response.WriteAsync(result);
         }
     };
@@ -73,7 +80,7 @@ builder.Services.AddCors(options =>
 {
     options.AddDefaultPolicy(policy =>
     {
-        policy.WithOrigins("http://localhost:3000")
+        policy.WithOrigins("http://localhost:5173")
               .AllowAnyHeader()
               .AllowAnyMethod()
               .AllowCredentials();

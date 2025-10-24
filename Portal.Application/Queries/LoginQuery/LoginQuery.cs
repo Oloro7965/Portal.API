@@ -10,7 +10,7 @@ namespace Portal.Application.Queries.LoginQuery
 {
     public class LoginQuery: IRequest<ResultViewModel<LoginViewModel>>
     {
-        public string Email { get; set; }
-        public string Senha { get; set; }
+        public string Email { get; set; } = string.Empty;
+        public string Senha { get; set; } = string.Empty;
     }
 }
