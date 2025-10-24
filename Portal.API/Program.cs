@@ -1,12 +1,14 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using OpenAI;
 using Portal.Application.Commands.CreateUserCommand;
 using Portal.Core.Repositories;
 using Portal.Core.Service;
 using Portal.Infraestructure;
 using Portal.Infraestructure.Auth;
 using Portal.Infraestructure.Persistance.Repositories;
+using Portal.Infraestructure.Services;
 using System.Text;
 using System.Text.Json;
 
@@ -65,6 +67,12 @@ builder.Services.AddScoped<IForumRepository,ForumRepository>();
 builder.Services.AddScoped<IRevistaRepository, RevistaRepository>();
 builder.Services.AddScoped<IPostagemRepository, PostagemRepository>();
 builder.Services.AddScoped<IKeywordsRepository, KeywordsRepository>();
+
+builder.Services.AddSingleton(new OpenAIClient(
+    Environment.GetEnvironmentVariable("OPENAI_API_KEY")
+));
+builder.Services.AddScoped<IEmbeddingService, EmbeddingService>();
+
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
