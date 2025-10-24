@@ -71,6 +71,10 @@ namespace Portal.API.Controllers
                 });
             }
             var token = result.Extra as string;
+            if (token == null)
+            {
+                return BadRequest("Token não pode ser nulo");
+            }
             var cookieOptions = new CookieOptions
             {
                 HttpOnly = true,
@@ -85,7 +89,9 @@ namespace Portal.API.Controllers
             {
                 success = true,
                 message = result.Message,
-                usuario = result.Data
+                usuario = result.Data,
+                token,
+                tipoUsuario = result.Data?.TipoUsuario
             });
         }
         [HttpPost("Logout")]

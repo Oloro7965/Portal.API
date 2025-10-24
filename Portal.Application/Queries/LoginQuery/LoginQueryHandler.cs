@@ -35,7 +35,7 @@ namespace Portal.Application.Queries.LoginQuery
             // Gera token JWT com papel do usuário
             var token = _authService.GenerateToken(usuario.Id.ToString(), usuario.email, usuario.tipoUsuario);
 
-            var login = new LoginViewModel(usuario.Id.ToString(), usuario.NomeCompleto, usuario.email);
+            var login = new LoginViewModel(usuario.Id.ToString(), usuario.NomeCompleto, usuario.email, usuario.tipoUsuario.ToString());
 
             return ResultViewModel<LoginViewModel>.Success(login, "Login realizado com sucesso.", token);
         }

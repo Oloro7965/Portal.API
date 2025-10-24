@@ -43,7 +43,8 @@ namespace Portal.Infraestructure.Auth
         {
             var issuer = _configuration["Jwt:Issuer"];
             var Audience = _configuration["Jwt:Audience"];
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
+            var jwtKey = _configuration["Jwt:Key"] ?? throw new InvalidOperationException("JWT Key not found in configuration");
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey));
 
 
             var credenciais = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
