@@ -12,8 +12,8 @@ using Portal.Infraestructure;
 namespace Portal.Infraestructure.Migrations
 {
     [DbContext(typeof(PortalDbContext))]
-    [Migration("20251016194259_KeywordUpdate")]
-    partial class KeywordUpdate
+    [Migration("20251027022847_InitialMigration")]
+    partial class InitialMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -30,8 +30,8 @@ namespace Portal.Infraestructure.Migrations
                     b.Property<Guid>("ArtigoId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("KeywordId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("KeywordId")
+                        .HasColumnType("int");
 
                     b.HasKey("ArtigoId", "KeywordId");
 
@@ -174,23 +174,20 @@ namespace Portal.Infraestructure.Migrations
 
             modelBuilder.Entity("Portal.Core.Entities.Keywords", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
-
-                    b.Property<Guid?>("RevistaId")
-                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("titulo")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("RevistaId");
 
                     b.ToTable("keywords");
                 });
@@ -237,13 +234,17 @@ namespace Portal.Infraestructure.Migrations
                         .HasColumnType("bit")
                         .HasDefaultValue(false);
 
+                    b.Property<string>("MyProperty")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("area")
                         .HasColumnType("int");
 
-                    b.Property<string>("arquivopdf")
+                    b.Property<byte[]>("arquivopdf")
                         .IsRequired()
                         .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
+                        .HasColumnType("varbinary(500)");
 
                     b.Property<string>("capa")
                         .IsRequired()
@@ -321,10 +322,10 @@ namespace Portal.Infraestructure.Migrations
                     b.Property<int>("area")
                         .HasColumnType("int");
 
-                    b.Property<string>("arquivopdf")
+                    b.Property<byte[]>("arquivopdf")
                         .IsRequired()
                         .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
+                        .HasColumnType("varbinary(500)");
 
                     b.Property<string>("descricao")
                         .IsRequired()
@@ -342,6 +343,21 @@ namespace Portal.Infraestructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Artigos");
+                });
+
+            modelBuilder.Entity("RevistaKeyword", b =>
+                {
+                    b.Property<Guid>("RevistaId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("KeywordId")
+                        .HasColumnType("int");
+
+                    b.HasKey("RevistaId", "KeywordId");
+
+                    b.HasIndex("KeywordId");
+
+                    b.ToTable("RevistaKeyword");
                 });
 
             modelBuilder.Entity("RevistaUsuario", b =>
@@ -423,13 +439,6 @@ namespace Portal.Infraestructure.Migrations
                     b.Navigation("postagem");
                 });
 
-            modelBuilder.Entity("Portal.Core.Entities.Keywords", b =>
-                {
-                    b.HasOne("Portal.Core.Entities.Revista", null)
-                        .WithMany("keywords")
-                        .HasForeignKey("RevistaId");
-                });
-
             modelBuilder.Entity("Portal.Core.Entities.Postagem", b =>
                 {
                     b.HasOne("Portal.Core.Entities.Forum", null)
@@ -443,6 +452,21 @@ namespace Portal.Infraestructure.Migrations
                         .IsRequired();
 
                     b.Navigation("usuario");
+                });
+
+            modelBuilder.Entity("RevistaKeyword", b =>
+                {
+                    b.HasOne("Portal.Core.Entities.Keywords", null)
+                        .WithMany()
+                        .HasForeignKey("KeywordId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Portal.Core.Entities.Revista", null)
+                        .WithMany()
+                        .HasForeignKey("RevistaId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("RevistaUsuario", b =>
@@ -468,11 +492,6 @@ namespace Portal.Infraestructure.Migrations
             modelBuilder.Entity("Portal.Core.Entities.Postagem", b =>
                 {
                     b.Navigation("comentarios");
-                });
-
-            modelBuilder.Entity("Portal.Core.Entities.Revista", b =>
-                {
-                    b.Navigation("keywords");
                 });
 
             modelBuilder.Entity("Portal.Core.Entities.Usuario", b =>

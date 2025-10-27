@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Portal.Infraestructure.Migrations
 {
     /// <inheritdoc />
-    public partial class FirstMigration : Migration
+    public partial class InitialMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -19,7 +19,7 @@ namespace Portal.Infraestructure.Migrations
                     titulo = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
                     descricao = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: false),
                     publicacao = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    arquivopdf = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
+                    arquivopdf = table.Column<byte[]>(type: "varbinary(500)", maxLength: 500, nullable: false),
                     area = table.Column<int>(type: "int", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false, defaultValue: false)
                 },
@@ -62,6 +62,20 @@ namespace Portal.Infraestructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "keywords",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    titulo = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_keywords", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Revistas",
                 columns: table => new
                 {
@@ -71,8 +85,9 @@ namespace Portal.Infraestructure.Migrations
                     edicao = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     capa = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
                     publicacao = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    arquivopdf = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
+                    arquivopdf = table.Column<byte[]>(type: "varbinary(500)", maxLength: 500, nullable: false),
                     area = table.Column<int>(type: "int", nullable: false),
+                    MyProperty = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false, defaultValue: false)
                 },
                 constraints: table =>
@@ -97,21 +112,51 @@ namespace Portal.Infraestructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "keywords",
+                name: "ArtigoKeyword",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    titulo = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    RevistaId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                    ArtigoId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    KeywordId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_keywords", x => x.Id);
+                    table.PrimaryKey("PK_ArtigoKeyword", x => new { x.ArtigoId, x.KeywordId });
                     table.ForeignKey(
-                        name: "FK_keywords_Revistas_RevistaId",
+                        name: "FK_ArtigoKeyword_Artigos_ArtigoId",
+                        column: x => x.ArtigoId,
+                        principalTable: "Artigos",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_ArtigoKeyword_keywords_KeywordId",
+                        column: x => x.KeywordId,
+                        principalTable: "keywords",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "RevistaKeyword",
+                columns: table => new
+                {
+                    RevistaId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    KeywordId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RevistaKeyword", x => new { x.RevistaId, x.KeywordId });
+                    table.ForeignKey(
+                        name: "FK_RevistaKeyword_Revistas_RevistaId",
                         column: x => x.RevistaId,
                         principalTable: "Revistas",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_RevistaKeyword_keywords_KeywordId",
+                        column: x => x.KeywordId,
+                        principalTable: "keywords",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -213,30 +258,6 @@ namespace Portal.Infraestructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ArtigoKeyword",
-                columns: table => new
-                {
-                    ArtigoId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    KeywordId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ArtigoKeyword", x => new { x.ArtigoId, x.KeywordId });
-                    table.ForeignKey(
-                        name: "FK_ArtigoKeyword_Artigos_ArtigoId",
-                        column: x => x.ArtigoId,
-                        principalTable: "Artigos",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_ArtigoKeyword_keywords_KeywordId",
-                        column: x => x.KeywordId,
-                        principalTable: "keywords",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Comentarios",
                 columns: table => new
                 {
@@ -289,11 +310,6 @@ namespace Portal.Infraestructure.Migrations
                 column: "UsuarioId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_keywords_RevistaId",
-                table: "keywords",
-                column: "RevistaId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Postagens_ForumId",
                 table: "Postagens",
                 column: "ForumId");
@@ -302,6 +318,11 @@ namespace Portal.Infraestructure.Migrations
                 name: "IX_Postagens_IdUsuario",
                 table: "Postagens",
                 column: "IdUsuario");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_RevistaKeyword_KeywordId",
+                table: "RevistaKeyword",
+                column: "KeywordId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_RevistaUsuario_UsuarioId",
@@ -325,10 +346,10 @@ namespace Portal.Infraestructure.Migrations
                 name: "EventoUsuario");
 
             migrationBuilder.DropTable(
-                name: "RevistaUsuario");
+                name: "RevistaKeyword");
 
             migrationBuilder.DropTable(
-                name: "keywords");
+                name: "RevistaUsuario");
 
             migrationBuilder.DropTable(
                 name: "Artigos");
@@ -338,6 +359,9 @@ namespace Portal.Infraestructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "Eventos");
+
+            migrationBuilder.DropTable(
+                name: "keywords");
 
             migrationBuilder.DropTable(
                 name: "Revistas");
