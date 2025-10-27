@@ -19,6 +19,6 @@ namespace Portal.Application.Commands.CreateRevistaCommand
         public DateTime publicacao { get; set; }
         //public string arquivopdf { get; set; }
         public Earea area { get; set; }
-        public List<Guid>? KeywordsIds { get; set; }
+        public List<int>? KeywordsIds { get; set; }
     }
 }

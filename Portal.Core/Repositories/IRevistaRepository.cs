@@ -12,6 +12,7 @@ namespace Portal.Core.Repositories
         Task<List<Revista>> GetAllAsync();
         Task<Revista> GetByIdAsync(Guid id);
         Task AddAsync(Revista revista);
+        Task<List<Revista>> SearchByKeywordsAsync(List<string> keywords);
         Task SaveChangesAsync();
     }
 }

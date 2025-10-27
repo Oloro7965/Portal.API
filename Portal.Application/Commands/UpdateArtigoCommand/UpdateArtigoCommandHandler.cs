@@ -23,7 +23,7 @@ namespace Portal.Application.Commands.UpdateArtigoCommand
             {
                 return ResultViewModel.Error("Artigo não encontrado");
             }
-            artigo.Update(request.titulo, request.descricao, request.arquivopdf);
+            artigo.Update(request.titulo, request.descricao);
             await _artigoRepository.SaveChangesAsync();
             return ResultViewModel.Success();
         }   

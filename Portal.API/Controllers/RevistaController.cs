@@ -4,6 +4,10 @@ using Microsoft.AspNetCore.Mvc;
 using Portal.Application.Commands.CreateRevistaCommand;
 using Portal.Application.Commands.DeleteRevistaCommand;
 using Portal.Application.Commands.UpdateRevistaCommand;
+using Portal.Application.Commands.UploadPdfArtigoCommand;
+using Portal.Application.Commands.UploadPdfRevistaCommand;
+using Portal.Application.Queries.BaixarRevistaQuery;
+using Portal.Application.Queries.DownloadArtigoQuery;
 using Portal.Application.Queries.GetAllRevistasQuery;
 using Portal.Application.Queries.GetRevistaQuery;
 
@@ -41,7 +45,14 @@ namespace Portal.API.Controllers
 
             return Ok(revista);
         }
+        [HttpGet("{id}/download")]
+        public async Task<IActionResult> DownloadPdfRevista(Guid id)
+        {
+            var query = new DownloadRevistaQuery(id);
+            var bytes = await _mediator.Send(query);
 
+            return File(bytes, "application/pdf", $"revista-{id}.pdf");
+        }
         [HttpPost]
         [Authorize(Roles = "professor,admin")]
         public async Task<IActionResult> CreateRevista(CreateRevistaCommand command)
@@ -60,7 +71,16 @@ namespace Portal.API.Controllers
 
             return NoContent();
         }
+        [HttpPut("{id}/upload")]
+        public async Task<IActionResult> UploadPdf(UploadPdfRevistaCommand command)
+        {
+            if (command.ArquivoPdf == null || command.ArquivoPdf.Length == 0)
+                return BadRequest("Arquivo inválido");
 
+            await _mediator.Send(command);
+
+            return Ok("Upload concluído com sucesso");
+        }
         [HttpDelete("{id}")]
         [Authorize(Roles = "professor,admin")]
         public async Task<IActionResult> DeleteRevista(Guid id)

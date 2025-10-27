@@ -30,14 +30,14 @@ namespace Portal.Infraestructure.Persistance.Repositories
             return await _dbcontext.keywords.Where(u => u.IsDeleted.Equals(false)).ToListAsync();
         }
 
-        public async Task<Keywords> GetByIdAsync(Guid id)
+        public async Task<Keywords> GetByIdAsync(int id)
         {
 
             return await _dbcontext.keywords.Where(c => c.Id == id).SingleOrDefaultAsync();
 
         }
 
-        public async Task<List<Keywords>> GetByIdsAsync(List<Guid> ids)
+        public async Task<List<Keywords>> GetByIdsAsync(List<int> ids)
         {
             return await _dbcontext.keywords
             .Where(k => ids.Contains(k.Id))

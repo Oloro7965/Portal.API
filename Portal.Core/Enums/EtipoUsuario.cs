@@ -10,7 +10,8 @@ namespace Portal.Core.Enums
     {
         admin,
         professor,
-        aluno,
-        visitante
+        alunoNejusc,
+        usuario,
+        
     }
 }

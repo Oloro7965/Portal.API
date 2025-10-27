@@ -23,7 +23,6 @@ namespace Portal.Application.Commands.CreateArtigoCommand
                 request.Titulo,
                 request.Descricao,
                 request.DataPublicacao,
-                request.ArquivoPdf,
                 request.area
             );
 

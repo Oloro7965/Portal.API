@@ -12,6 +12,7 @@ namespace Portal.Core.Repositories
         Task<List<artigo>> GetAllAsync();
         Task<artigo> GetByIdAsync(Guid id);
         Task AddAsync(artigo artigo);
+        Task<List<artigo>> SearchByKeywordsAsync(List<string> keywords);
         Task SaveChangesAsync();
 
     }

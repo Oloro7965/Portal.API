@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Portal.Application.Commands.CreateUserCommand;
 using Portal.Application.Commands.DeleteUserCommand;
 using Portal.Application.Commands.UpdateUserCommand;
+using Portal.Application.Commands.UpdateUserStatusCommand;
 using Portal.Application.Queries.GetAllUsersQuery;
 using Portal.Application.Queries.GetUsersQuery;
 using Portal.Application.Queries.LoginQuery;
@@ -115,6 +116,18 @@ namespace Portal.API.Controllers
             }
 
             return NoContent();
+        }
+        [HttpPut("{id}/status")]
+        public async Task<IActionResult> UpdateUserStatus(UpdateUserStatusCommand command)
+
+        {
+            var result = await _mediator.Send(command);
+            if (!result.IsSuccess)
+            {
+                return BadRequest(result.Message);
+            }
+
+            return Ok("Usuário atualizado para alunoNejusc com sucesso.");
         }
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteUser(Guid id)

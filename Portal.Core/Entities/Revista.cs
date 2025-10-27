@@ -21,6 +21,7 @@ namespace Portal.Core.Entities
             this.autores = new List<Usuario>();
             this.area = area;
             this.keywords = keywords ?? new List<Keywords>();
+            arquivopdf = null;
         }
 
         public string titulo { get; private set; }
@@ -28,7 +29,7 @@ namespace Portal.Core.Entities
         public string edicao { get; private set; }
         public string capa { get; private set; }
         public DateTime publicacao { get; private set; }
-        public string arquivopdf { get; private set; }
+        public byte[] arquivopdf { get; private set; }
         public List<Usuario> autores { get; private set; }
         public Earea area { get; private set; }
         public List<Keywords> keywords { get; private set; }
@@ -38,14 +39,17 @@ namespace Portal.Core.Entities
         {
             IsDeleted = true;
         }
-        public void Update(string Titulo, string Descricao, string Edicao, string Capa, DateTime Publicacao, string Arquivopdf, List<Usuario> Autores, Earea Area)
+        public void DefinirArquivoPdf(byte[] arquivo)
+        {
+            arquivopdf = arquivo;
+        }
+        public void Update(string Titulo, string Descricao, string Edicao, string Capa, DateTime Publicacao, List<Usuario> Autores, Earea Area)
         {
             titulo = Titulo;
             descricao = Descricao;
             edicao = Edicao;
             capa = Capa;
             publicacao = Publicacao;
-            arquivopdf = Arquivopdf;
             autores = Autores;
             area = Area;
         }   

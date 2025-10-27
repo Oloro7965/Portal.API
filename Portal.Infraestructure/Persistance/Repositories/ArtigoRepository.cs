@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static Microsoft.Extensions.Logging.EventSource.LoggingEventSource;
 
 namespace Portal.Infraestructure.Persistance.Repositories
 {
@@ -34,6 +35,14 @@ namespace Portal.Infraestructure.Persistance.Repositories
         public async Task SaveChangesAsync()
         {
             await _dbcontext.SaveChangesAsync();
+        }
+
+        public async Task<List<artigo>> SearchByKeywordsAsync(List<string> keywords)
+        {
+            return await _dbcontext.Artigos
+                .Include(a => a.keywords)
+                .Where(a => a.keywords.Any(k => keywords.Contains(k.titulo)))
+                .ToListAsync();
         }
     }
 }

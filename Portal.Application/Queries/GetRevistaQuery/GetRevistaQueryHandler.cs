@@ -23,7 +23,7 @@ namespace Portal.Application.Queries.GetRevistaQuery
             {
                 return ResultViewModel<RevistaViewModel>.Error("Revista não encontrada.");
             }
-            var RevistaDetailViewModel = new RevistaViewModel(revista.titulo, revista.descricao, revista.edicao, revista.capa, revista.publicacao, revista.arquivopdf, revista.autores, revista.area, revista.keywords, revista.IsDeleted);
+            var RevistaDetailViewModel = new RevistaViewModel(revista.titulo, revista.descricao, revista.edicao, revista.capa, revista.publicacao,revista.autores, revista.area, revista.keywords, revista.IsDeleted);
             return ResultViewModel<RevistaViewModel>.Success(RevistaDetailViewModel);
         }
     }

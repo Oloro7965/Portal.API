@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 using Portal.Application.Commands.CreateArtigoCommand;
 using Portal.Application.Commands.DeleteArtigoCommand;
 using Portal.Application.Commands.UpdateArtigoCommand;
+using Portal.Application.Commands.UploadPdfArtigoCommand;
+using Portal.Application.Queries.DownloadArtigoQuery;
 using Portal.Application.Queries.GetAllArtigosQuery;
 using Portal.Application.Queries.GetArtigoQuery;
 
@@ -43,7 +45,14 @@ namespace Portal.API.Controllers
 
             return Ok(artigo);
         }
+        [HttpGet("{id}/download")]
+        public async Task<IActionResult> DownloadPdfArtigo(Guid id)
+        {
+            var query= new DownloadArtigoQuery(id);
+            var bytes = await _mediator.Send(query);
 
+            return File(bytes, "application/pdf", $"artigo-{id}.pdf");
+        }
         // ✏️ Somente professor ou admin
         [HttpPost]
         [Authorize(Roles = "professor,admin")]
@@ -64,7 +73,16 @@ namespace Portal.API.Controllers
 
             return NoContent();
         }
+        [HttpPut("{id}/upload")]
+        public async Task<IActionResult> UploadPdf(UploadPdfArtigoCommand command)
+        {
+            if (command.ArquivoPdf == null || command.ArquivoPdf.Length == 0)
+                return BadRequest("Arquivo inválido");
 
+            await _mediator.Send(command);
+
+            return Ok("Upload concluído com sucesso");
+        }
         // 🗑️ Somente professor ou admin
         [HttpDelete("{id}")]
         [Authorize(Roles = "professor,admin")]

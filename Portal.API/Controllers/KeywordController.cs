@@ -33,7 +33,7 @@ namespace Portal.API.Controllers
             return Ok(users);
         }
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetKeywordById(Guid id)
+        public async Task<IActionResult> GetKeywordById(int id)
         {
             var query = new GetKeywordsQuery(id);
 
@@ -70,7 +70,7 @@ namespace Portal.API.Controllers
 
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteKeyword(Guid id)
+        public async Task<IActionResult> DeleteKeyword(int id)
         {
             var command = new DeleteKeywordCommand(id);
 

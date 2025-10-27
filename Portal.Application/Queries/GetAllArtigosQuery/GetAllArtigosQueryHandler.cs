@@ -21,7 +21,7 @@ namespace Portal.Application.Queries.GetAllArtigosQuery
         public async Task<ResultViewModel<List<ArtigoViewModel>>> Handle(GetAllArtigosQuery request, CancellationToken cancellationToken)
         {
             var artigos = await _artigoRepository.GetAllAsync();
-            var artigoViewModel = artigos.Select(b => new ArtigoViewModel(b.titulo, b.descricao, b.publicacao, b.arquivopdf, b.autores, b.area, b.keywords)).ToList();
+            var artigoViewModel = artigos.Select(b => new ArtigoViewModel(b.titulo, b.descricao, b.publicacao,b.autores, b.area, b.keywords)).ToList();
             
             return ResultViewModel<List<ArtigoViewModel>>.Success(artigoViewModel);
         }

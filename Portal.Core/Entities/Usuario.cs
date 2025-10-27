@@ -43,6 +43,12 @@ namespace Portal.Core.Entities
             senhaHash = password;
 
         }
+        public void TornarAlunoNejusc()
+        {
+            if (tipoUsuario != EtipoUsuario.usuario)
+                throw new InvalidOperationException("Apenas usuários do tipo 'usuario' podem se tornar 'alunoNejusc'.");
 
+            tipoUsuario = EtipoUsuario.alunoNejusc;
+        }
     }
 }

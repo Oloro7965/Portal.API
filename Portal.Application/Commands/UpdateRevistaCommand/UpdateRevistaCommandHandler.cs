@@ -23,7 +23,7 @@ namespace Portal.Application.Commands.UpdateRevistaCommand
             {
                 return ResultViewModel.Error("Revista não encontrada.");
             }
-            revista.Update(request.Titulo, request.Descricao, request.Edicao, request.Capa, request.Publicacao, request.Arquivopdf, request.Autores, request.Area);
+            revista.Update(request.Titulo, request.Descricao, request.Edicao, request.Capa, request.Publicacao, request.Autores, request.Area);
             await _revistaRepository.SaveChangesAsync();
             return ResultViewModel.Success();
         }

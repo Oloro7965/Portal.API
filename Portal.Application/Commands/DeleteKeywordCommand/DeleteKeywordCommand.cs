@@ -10,11 +10,11 @@ namespace Portal.Application.Commands.DeleteKeywordCommand
 {
     public class DeleteKeywordCommand: IRequest<ResultViewModel>
     {
-        public DeleteKeywordCommand(Guid id)
+        public DeleteKeywordCommand(int id)
         {
             Id = id;
         }
 
-        public Guid Id { get; private set; }
+        public int Id { get; private set; }
     }
 }

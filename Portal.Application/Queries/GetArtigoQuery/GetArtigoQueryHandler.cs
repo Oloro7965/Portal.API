@@ -24,7 +24,7 @@ namespace Portal.Application.Queries.GetArtigoQuery
                 return ResultViewModel<ArtigoViewModel>.Error("Este artigo não existe");
             }
 
-            var ArtigoDetailViewModel = new ArtigoViewModel(artigo.titulo, artigo.descricao, artigo.publicacao, artigo.arquivopdf, artigo.autores, artigo.area, artigo.keywords);
+            var ArtigoDetailViewModel = new ArtigoViewModel(artigo.titulo, artigo.descricao, artigo.publicacao, artigo.autores, artigo.area, artigo.keywords);
             return ResultViewModel<ArtigoViewModel>.Success(ArtigoDetailViewModel);
         }
     }

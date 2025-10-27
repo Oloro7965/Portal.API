@@ -14,7 +14,7 @@ namespace Portal.Infraestructure.Services
     {
         private readonly ChatClient _chatClient;
 
-        public KeywordService(string apiKey, string model = "gpt-4")
+        public KeywordService(string apiKey, string model)
         {
             // Inicializa o ChatClient com modelo e API key
             _chatClient = new ChatClient(model: model, apiKey: apiKey);

@@ -33,5 +33,13 @@ namespace Portal.Infraestructure.Persistance.Repositories
         {
             await _dbcontext.SaveChangesAsync();
         }
+
+        public async Task<List<Revista>> SearchByKeywordsAsync(List<string> keywords)
+        {
+            return await _dbcontext.Revistas
+                .Include(a => a.keywords)
+                .Where(a => a.keywords.Any(k => !k.IsDeleted && keywords.Contains(k.titulo)))
+                .ToListAsync();
+        }
     }
 }

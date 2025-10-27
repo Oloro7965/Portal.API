@@ -10,7 +10,7 @@ namespace Portal.Application.Commands.UpdateKeywordCommand
 {
     public class UpdateKeywordCommand: IRequest<ResultViewModel>
     {
-        public Guid id { get; set; }
+        public int id { get; set; }
         public string NovoTitulo { get; set; }
         
     }

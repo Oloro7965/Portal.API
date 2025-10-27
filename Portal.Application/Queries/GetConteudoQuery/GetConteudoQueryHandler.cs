@@ -30,11 +30,11 @@ namespace Portal.Application.Queries.GetConteudoQuery
             var artigos = await _artigoRepository.SearchByKeywordsAsync(keywords);
             var revistas = await _revistaRepository.SearchByKeywordsAsync(keywords);
 
-            var resultado = artigos.Select(a => new PublicacaoViewModel(a.Id, a.Titulo, "Artigo"))
-                            .Concat(revistas.Select(r => new PublicacaoViewModel(r.Id, r.Nome, "Revista")))
+            var resultado = artigos.Select(a => new PublicacaoViewModel(a.titulo,a.descricao))
+                            .Concat(revistas.Select(r => new PublicacaoViewModel(r.titulo, r.descricao)))
                             .ToList();
 
-            return resultado;
+            return ResultViewModel<List<PublicacaoViewModel>>.Success(resultado);
         }
     }
 }

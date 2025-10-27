@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Portal.Core.Entities
 {
-    public class Keywords:BaseEntity
+    public class Keywords
     {
        public Keywords(string titulo)
         {
@@ -15,7 +15,7 @@ namespace Portal.Core.Entities
             revistas=new List<Revista>();
             IsDeleted = false;
         }
-
+        public int Id { get; private set; }
         public string titulo { get; private set; }
         public List<artigo> artigos { get; private set; }
         public List<Revista> revistas { get; private set; }

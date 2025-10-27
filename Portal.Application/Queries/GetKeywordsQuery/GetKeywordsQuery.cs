@@ -10,11 +10,11 @@ namespace Portal.Application.Queries.GetKeywordsQuery
 {
     public class GetKeywordsQuery: IRequest<ResultViewModel<KeywordsViewModel>>
     {
-        public GetKeywordsQuery(Guid id)
+        public GetKeywordsQuery(int id)
         {
             Id = id;
         }
 
-        public Guid Id { get; private set; }
+        public int Id { get; private set; }
     }
 }

@@ -75,11 +75,21 @@ builder.Services.AddScoped<IRevistaRepository, RevistaRepository>();
 builder.Services.AddScoped<IPostagemRepository, PostagemRepository>();
 builder.Services.AddScoped<IKeywordsRepository, KeywordsRepository>();
 
-builder.Services.AddSingleton(new OpenAIClient(
-    Environment.GetEnvironmentVariable("OPENAI_API_KEY")
-));
-builder.Services.AddScoped<IEmbeddingService, EmbeddingService>();
+//builder.Services.AddSingleton(new OpenAIClient(
+//    Environment.GetEnvironmentVariable("OPENAI_API_KEY")
+//));
+//builder.Services.AddScoped<IEmbeddingService, EmbeddingService>();
+builder.Services.AddScoped<IArquivoArtigoService, ArquivoArtigoService>();
+builder.Services.AddScoped<IArquivoRevistaService, ArquivoRevistaService>();
+var openAIConfig = builder.Configuration.GetSection("OpenAI");
+var apiKey = openAIConfig.GetValue<string>("ApiKey");
+var model = openAIConfig.GetValue<string>("Model");
 
+// Registra o KeywordService usando a factory
+builder.Services.AddScoped<IKeywordService>(sp =>
+{
+    return new KeywordService(apiKey, model);
+});
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

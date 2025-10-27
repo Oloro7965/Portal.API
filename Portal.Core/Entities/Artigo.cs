@@ -10,12 +10,12 @@ namespace Portal.Core.Entities
 {
     public class artigo:BaseEntity
     {
-        public artigo(string titulo, string descricao, DateTime publicacao, string arquivopdf,Earea area)
+        public artigo(string titulo, string descricao, DateTime publicacao,Earea area)
         {
             this.titulo = titulo;
             this.descricao = descricao;
             this.publicacao = publicacao;
-            this.arquivopdf = arquivopdf;
+            this.arquivopdf = null;
             this.autores = new List<Usuario>();
             this.area = area;
             this.keywords = new List<Keywords>();
@@ -24,7 +24,7 @@ namespace Portal.Core.Entities
         public string titulo { get; private set; }
         public string descricao { get; private set; }
         public DateTime publicacao { get; private set; }
-        public string arquivopdf { get; private set; }
+        public byte[] arquivopdf { get; private set; }
         public List<Usuario> autores { get; private set; }
         public Earea area { get; private set; }
         public List<Keywords> keywords  { get; private set; }
@@ -33,11 +33,15 @@ namespace Portal.Core.Entities
         {
             IsDeleted = true;
         }
-        public void Update(string Titulo, string Descricao, string pdf)
+        public void Update(string Titulo, string Descricao)
         {
             titulo = Titulo;
             descricao = Descricao;
-            arquivopdf = pdf;
+            
+        }
+        public void DefinirArquivoPdf(byte[] arquivo)
+        {
+            arquivopdf = arquivo;
         }
     }
 }
