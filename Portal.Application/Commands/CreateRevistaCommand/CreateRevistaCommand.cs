@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Http;
 using Portal.Application.ViewModels;
 using Portal.Core.Entities;
 using Portal.Core.Enums;
@@ -19,6 +20,8 @@ namespace Portal.Application.Commands.CreateRevistaCommand
         public DateTime publicacao { get; set; }
         //public string arquivopdf { get; set; }
         public Earea area { get; set; }
+        public IFormFile? Capa { get; set; }
+        public IFormFile? Arquivopdf {  get; set; }
         public List<int>? KeywordsIds { get; set; }
     }
 }

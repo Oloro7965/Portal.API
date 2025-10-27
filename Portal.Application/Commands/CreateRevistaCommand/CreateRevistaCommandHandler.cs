@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using Portal.Core.Enums;
 using Microsoft.EntityFrameworkCore;
 using System.Threading;
+using Portal.Core.Service;
 
 namespace Portal.Application.Commands.CreateRevistaCommand
 {
@@ -17,11 +18,14 @@ namespace Portal.Application.Commands.CreateRevistaCommand
     {
         private readonly IRevistaRepository _revistaRepository;
         private readonly IKeywordsRepository _keywordsRepository;
+        private readonly IArquivoRevistaService _arquivoRevistaService;
 
-        public CreateRevistaCommandHandler(IRevistaRepository revistaRepository, IKeywordsRepository keywordsRepository)
+        public CreateRevistaCommandHandler(IRevistaRepository revistaRepository, IKeywordsRepository keywordsRepository,
+            IArquivoRevistaService arquivoRevistaService)
         {
             _revistaRepository = revistaRepository;
             _keywordsRepository = keywordsRepository;
+            _arquivoRevistaService = arquivoRevistaService;
         }
         public async Task<ResultViewModel<object>> Handle(CreateRevistaCommand request, CancellationToken CancellationToken) 
         {
@@ -36,10 +40,15 @@ namespace Portal.Application.Commands.CreateRevistaCommand
                 request.descricao,
                 request.edicao,
                 request.publicacao,
-                request.area
-                
+                request.area,
+                keywords
             );
             await _revistaRepository.AddAsync(revista);
+            if (request.Arquivopdf != null)
+                await _arquivoRevistaService.UploadAsync(revista.Id, request.Arquivopdf);
+
+            if (request.Capa != null)
+                await _arquivoRevistaService.UploadImagemAsync(revista.Id, request.Capa);
             return ResultViewModel<object>.Success(new { revista.Id });
         }
     }

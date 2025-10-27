@@ -10,15 +10,16 @@ namespace Portal.Core.Entities
 {
     public class artigo:BaseEntity
     {
-        public artigo(string titulo, string descricao, DateTime publicacao,Earea area)
+        public artigo(string titulo, string descricao, DateTime publicacao,Earea area,
+            List<Keywords>? keywords = null,byte[]? Arquivopdf = null)
         {
             this.titulo = titulo;
             this.descricao = descricao;
             this.publicacao = publicacao;
-            this.arquivopdf = null;
+            this.arquivopdf = Arquivopdf;
             this.autores = new List<Usuario>();
             this.area = area;
-            this.keywords = new List<Keywords>();
+            this.keywords = keywords ?? new List<Keywords>();
         }
 
         public string titulo { get; private set; }
