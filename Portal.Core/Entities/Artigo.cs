@@ -10,6 +10,10 @@ namespace Portal.Core.Entities
 {
     public class artigo:BaseEntity
     {
+        private artigo()
+        {
+
+        }
         public artigo(string titulo, string descricao, DateTime publicacao,Earea area,
             List<Keywords>? keywords = null,byte[]? Arquivopdf = null)
         {

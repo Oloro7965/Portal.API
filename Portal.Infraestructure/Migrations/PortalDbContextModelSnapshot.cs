@@ -231,10 +231,6 @@ namespace Portal.Infraestructure.Migrations
                         .HasColumnType("bit")
                         .HasDefaultValue(false);
 
-                    b.Property<string>("MyProperty")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("area")
                         .HasColumnType("int");
 
@@ -243,10 +239,10 @@ namespace Portal.Infraestructure.Migrations
                         .HasMaxLength(500)
                         .HasColumnType("varbinary(500)");
 
-                    b.Property<string>("capa")
+                    b.Property<byte[]>("capa")
                         .IsRequired()
                         .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
+                        .HasColumnType("varbinary(500)");
 
                     b.Property<string>("descricao")
                         .IsRequired()
