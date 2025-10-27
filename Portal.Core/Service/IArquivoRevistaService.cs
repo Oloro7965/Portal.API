@@ -11,5 +11,6 @@ namespace Portal.Core.Service
     {
         Task UploadAsync(Guid id, IFormFile arquivo);
         Task<byte[]> BaixarAsync(Guid id);
+        Task UploadImagemAsync(Guid id, IFormFile imagem);
     }
 }

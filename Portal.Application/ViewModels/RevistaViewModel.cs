@@ -11,7 +11,7 @@ namespace Portal.Application.ViewModels
     public class RevistaViewModel
     {
         public RevistaViewModel(string titulo, string descricao, string edicao, 
-            string capa, DateTime publicacao,List<Usuario> autores, Earea area, List<Keywords> keywords, bool isDeleted)
+             DateTime publicacao,List<Usuario> autores, Earea area, List<Keywords> keywords, bool isDeleted)
         {
             this.titulo = titulo;
             this.descricao = descricao;

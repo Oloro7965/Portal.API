@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Portal.Application.Commands.CreateRevistaCommand;
 using Portal.Application.Commands.DeleteRevistaCommand;
 using Portal.Application.Commands.UpdateRevistaCommand;
+using Portal.Application.Commands.UploadImagemCommand;
 using Portal.Application.Commands.UploadPdfArtigoCommand;
 using Portal.Application.Commands.UploadPdfRevistaCommand;
 using Portal.Application.Queries.BaixarRevistaQuery;
@@ -80,6 +81,16 @@ namespace Portal.API.Controllers
             await _mediator.Send(command);
 
             return Ok("Upload concluído com sucesso");
+        }
+        [HttpPut("{id}/imagem")]
+        public async Task<IActionResult> UploadImagem(UploadImagemCommand command)
+        {
+            if (command.Capa == null || command.Capa.Length == 0)
+                return BadRequest("Arquivo inválido");
+
+            await _mediator.Send(command);
+
+            return Ok("Upload de imagem concluído com sucesso");
         }
         [HttpDelete("{id}")]
         [Authorize(Roles = "professor,admin")]

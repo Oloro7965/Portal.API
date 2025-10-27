@@ -42,5 +42,20 @@ namespace Portal.Infraestructure.Services
             revista.DefinirArquivoPdf(bytes);
             await _revistaRepository.SaveChangesAsync();
         }
+        public async Task UploadImagemAsync(Guid id, IFormFile imagem)
+        {
+            if (imagem == null || imagem.Length == 0)
+                throw new ArgumentException("Imagem inválida");
+
+            using var ms = new MemoryStream();
+            await imagem.CopyToAsync(ms);
+            var bytes = ms.ToArray();
+
+            var revista = await _revistaRepository.GetByIdAsync(id)
+                ?? throw new Exception("Revista não encontrada");
+
+            revista.DefinirCapa(bytes);
+            await _revistaRepository.SaveChangesAsync();
+        }
     }
 }

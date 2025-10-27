@@ -35,7 +35,6 @@ namespace Portal.Application.Commands.CreateRevistaCommand
                 request.titulo,
                 request.descricao,
                 request.edicao,
-                request.capa,
                 request.publicacao,
                 request.area
                 

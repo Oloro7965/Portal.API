@@ -10,12 +10,12 @@ namespace Portal.Core.Entities
     public class Revista:BaseEntity
     {
         private Revista() { }
-        public Revista(string titulo, string descricao, string edicao, string capa, DateTime publicacao, Earea area,List<Keywords>? keywords = null)
+        public Revista(string titulo, string descricao, string edicao,DateTime publicacao, Earea area,List<Keywords>? keywords = null)
         {
             this.titulo = titulo;
             this.descricao = descricao;
             this.edicao = edicao;
-            this.capa = capa;
+            capa = null;
             this.publicacao = publicacao;
             //this.arquivopdf = arquivopdf;
             this.autores = new List<Usuario>();
@@ -27,7 +27,7 @@ namespace Portal.Core.Entities
         public string titulo { get; private set; }
         public string descricao { get; private set; }
         public string edicao { get; private set; }
-        public string capa { get; private set; }
+        public byte[] capa { get; private set; }
         public DateTime publicacao { get; private set; }
         public byte[] arquivopdf { get; private set; }
         public List<Usuario> autores { get; private set; }
@@ -43,12 +43,15 @@ namespace Portal.Core.Entities
         {
             arquivopdf = arquivo;
         }
-        public void Update(string Titulo, string Descricao, string Edicao, string Capa, DateTime Publicacao, List<Usuario> Autores, Earea Area)
+        public void DefinirCapa(byte[] Capa)
+        {
+            capa=Capa;
+        }
+        public void Update(string Titulo, string Descricao, string Edicao, DateTime Publicacao, List<Usuario> Autores, Earea Area)
         {
             titulo = Titulo;
             descricao = Descricao;
             edicao = Edicao;
-            capa = Capa;
             publicacao = Publicacao;
             autores = Autores;
             area = Area;
