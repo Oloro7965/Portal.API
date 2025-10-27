@@ -21,9 +21,6 @@ namespace Portal.Infrastructure.Configurations
                    .IsRequired()
                    .HasMaxLength(1000);
 
-            builder.Property(r => r.edicao)
-                   .HasMaxLength(50);
-
             builder.Property(r => r.capa)
                    .HasMaxLength(500);
 

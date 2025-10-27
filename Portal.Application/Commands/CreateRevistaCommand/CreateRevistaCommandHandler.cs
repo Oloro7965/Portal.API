@@ -38,7 +38,6 @@ namespace Portal.Application.Commands.CreateRevistaCommand
             var revista = new Revista(
                 request.titulo,
                 request.descricao,
-                request.edicao,
                 request.publicacao,
                 request.area,
                 keywords
