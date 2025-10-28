@@ -41,5 +41,11 @@ namespace Portal.Infraestructure.Persistance.Repositories
                 .Where(a => a.keywords.Any(k => !k.IsDeleted && keywords.Contains(k.titulo)))
                 .ToListAsync();
         }
+
+        public async Task UpdateAsync(Revista revista)
+        {
+            _dbcontext.Revistas.Attach(revista); 
+            await _dbcontext.SaveChangesAsync();
+        }
     }
 }

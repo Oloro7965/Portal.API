@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using Portal.Core.Repositories;
 using Portal.Core.Service;
 using Portal.Infraestructure.Persistance.Repositories;
@@ -38,9 +39,8 @@ namespace Portal.Infraestructure.Services
 
             var revista = await _revistaRepository.GetByIdAsync(id)
                 ?? throw new Exception("Revista não encontrada");
-
             revista.DefinirArquivoPdf(bytes);
-            await _revistaRepository.SaveChangesAsync();
+            await _revistaRepository.UpdateAsync(revista);
         }
         public async Task UploadImagemAsync(Guid id, IFormFile imagem)
         {
@@ -55,7 +55,7 @@ namespace Portal.Infraestructure.Services
                 ?? throw new Exception("Revista não encontrada");
 
             revista.DefinirCapa(bytes);
-            await _revistaRepository.SaveChangesAsync();
+            await _revistaRepository.UpdateAsync(revista);
         }
     }
 }
