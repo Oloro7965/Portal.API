@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Portal.Infraestructure.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialMigration : Migration
+    public partial class FirstMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -82,8 +82,7 @@ namespace Portal.Infraestructure.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     titulo = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
                     descricao = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: false),
-                    edicao = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    capa = table.Column<byte[]>(type: "varbinary(500)", maxLength: 500, nullable: false),
+                    capa = table.Column<byte[]>(type: "varbinary(500)", maxLength: 500, nullable: true),
                     publicacao = table.Column<DateTime>(type: "datetime2", nullable: false),
                     arquivopdf = table.Column<byte[]>(type: "varbinary(500)", maxLength: 500, nullable: false),
                     area = table.Column<int>(type: "int", nullable: false),

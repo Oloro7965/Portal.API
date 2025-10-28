@@ -12,8 +12,8 @@ using Portal.Infraestructure;
 namespace Portal.Infraestructure.Migrations
 {
     [DbContext(typeof(PortalDbContext))]
-    [Migration("20251027234410_RemovingEdicao")]
-    partial class RemovingEdicao
+    [Migration("20251028020832_FirstMigration")]
+    partial class FirstMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -243,7 +243,6 @@ namespace Portal.Infraestructure.Migrations
                         .HasColumnType("varbinary(500)");
 
                     b.Property<byte[]>("capa")
-                        .IsRequired()
                         .HasMaxLength(500)
                         .HasColumnType("varbinary(500)");
 

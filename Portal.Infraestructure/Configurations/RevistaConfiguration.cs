@@ -22,14 +22,15 @@ namespace Portal.Infrastructure.Configurations
                    .HasMaxLength(1000);
 
             builder.Property(r => r.capa)
-                   .HasMaxLength(500);
+                .HasColumnType("varbinary(max)")
+                .IsRequired(false);
 
             builder.Property(r => r.publicacao)
                    .IsRequired();
 
             builder.Property(r => r.arquivopdf)
-                   .IsRequired()
-                   .HasMaxLength(500);
+                   .HasColumnType("varbinary(max)")
+                    .IsRequired(false);
 
             builder.Property(r => r.area)
                    .IsRequired()

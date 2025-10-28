@@ -29,7 +29,7 @@ namespace Portal.Core.Entities
         public string titulo { get; private set; }
         public string descricao { get; private set; }
         public DateTime publicacao { get; private set; }
-        public byte[] arquivopdf { get; private set; }
+        public byte[]? arquivopdf { get; private set; }
         public List<Usuario> autores { get; private set; }
         public Earea area { get; private set; }
         public List<Keywords> keywords  { get; private set; }

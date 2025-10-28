@@ -12,8 +12,8 @@ using Portal.Infraestructure;
 namespace Portal.Infraestructure.Migrations
 {
     [DbContext(typeof(PortalDbContext))]
-    [Migration("20251027193103_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20251028022432_ThirdMigration")]
+    partial class ThirdMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -238,24 +238,15 @@ namespace Portal.Infraestructure.Migrations
                         .HasColumnType("int");
 
                     b.Property<byte[]>("arquivopdf")
-                        .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("varbinary(500)");
+                        .HasColumnType("varbinary(max)");
 
                     b.Property<byte[]>("capa")
-                        .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("varbinary(500)");
+                        .HasColumnType("varbinary(max)");
 
                     b.Property<string>("descricao")
                         .IsRequired()
                         .HasMaxLength(1000)
                         .HasColumnType("nvarchar(1000)");
-
-                    b.Property<string>("edicao")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
 
                     b.Property<DateTime>("publicacao")
                         .HasColumnType("datetime2");
@@ -319,9 +310,7 @@ namespace Portal.Infraestructure.Migrations
                         .HasColumnType("int");
 
                     b.Property<byte[]>("arquivopdf")
-                        .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("varbinary(500)");
+                        .HasColumnType("varbinary(max)");
 
                     b.Property<string>("descricao")
                         .IsRequired()

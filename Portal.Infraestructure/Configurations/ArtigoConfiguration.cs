@@ -25,8 +25,8 @@ namespace Portal.Infrastructure.Configurations
                    .IsRequired();
 
             builder.Property(a => a.arquivopdf)
-                   .IsRequired()
-                   .HasMaxLength(500);
+                   .HasColumnType("varbinary(max)")
+                   .IsRequired(false);
 
             builder.Property(a => a.area)
                    .IsRequired()
