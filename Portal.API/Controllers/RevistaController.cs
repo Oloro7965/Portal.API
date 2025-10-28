@@ -56,7 +56,8 @@ namespace Portal.API.Controllers
         }
         [HttpPost]
         [Authorize(Roles = "professor,admin")]
-        public async Task<IActionResult> CreateRevista(CreateRevistaCommand command)
+        [Consumes("multipart/form-data")]
+        public async Task<IActionResult> CreateRevista([FromForm] CreateRevistaCommand command)
         {
             var revistaId = await _mediator.Send(command);
             return CreatedAtAction(nameof(GetRevistaById), new { id = revistaId }, command);
