@@ -111,6 +111,10 @@ builder.Services.AddCors(options =>
     });
 });
 var app = builder.Build();
+if (app.Environment.IsDevelopment())
+{
+    app.UseDeveloperExceptionPage();
+}
 app.UseCors();
 // Configure the HTTP request pipeline.
 
