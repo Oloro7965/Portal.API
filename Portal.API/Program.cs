@@ -3,7 +3,9 @@ using Microsoft.AspNetCore.Http.Features;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using OpenAI;
+using Portal.API.Services;
 using Portal.Application.Commands.CreateUserCommand;
+using Portal.Application.Interfaces;
 using Portal.Core.Repositories;
 using Portal.Core.Service;
 using Portal.Infraestructure;
@@ -76,6 +78,8 @@ builder.Services.AddScoped<IForumRepository,ForumRepository>();
 builder.Services.AddScoped<IRevistaRepository, RevistaRepository>();
 builder.Services.AddScoped<IPostagemRepository, PostagemRepository>();
 builder.Services.AddScoped<IKeywordsRepository, KeywordsRepository>();
+builder.Services.AddScoped<IUrlGenerator, UrlGenerator>();
+builder.Services.AddHttpContextAccessor();
 
 //builder.Services.AddSingleton(new OpenAIClient(
 //    Environment.GetEnvironmentVariable("OPENAI_API_KEY")

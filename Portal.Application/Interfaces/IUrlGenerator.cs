@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace Portal.Application.Interfaces
 {
-    public interface IEmbeddingService
+    public interface IUrlGenerator
     {
-        Task<List<float>> GerarEmbeddingAsync(string texto);
+        string? GetDownloadArtigoUrl(Guid id);
+        string? GetDownloadRevistaUrl(Guid id);
     }
 }

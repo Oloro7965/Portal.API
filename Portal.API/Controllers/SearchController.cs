@@ -4,6 +4,8 @@ using Portal.Application.Queries.GetConteudoQuery;
 
 namespace Portal.API.Controllers
 {
+    [ApiController]
+    [Route("api/Search")]
     public class SearchController : Controller
     {
         private readonly IMediator _mediator;
@@ -30,7 +32,8 @@ namespace Portal.API.Controllers
             return Ok(new
             {
                 Query = query,
-                resultado= result
+                KeywordsGeradas = result.Extra,
+                resultado = result.Data
             });
         }
     }
