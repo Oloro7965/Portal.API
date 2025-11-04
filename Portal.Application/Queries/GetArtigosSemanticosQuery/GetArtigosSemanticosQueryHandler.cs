@@ -14,7 +14,7 @@ namespace Portal.Application.Queries.GetArtigosSemanticosQuery
     {
         private readonly IArtigoRepository _artigoRepository;
         private readonly IRevistaRepository _revistaRepository;
-        private readonly IEmbeddingService _embeddingService;
+        
         public Task<ResultViewModel<List<PublicacaoViewModel>>> Handle(GetArtigosSemanticosQuery request, CancellationToken cancellationToken)
         {
             throw new NotImplementedException();
