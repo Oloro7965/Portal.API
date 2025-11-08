@@ -104,7 +104,7 @@ builder.Services.AddScoped<IKeywordService>(sp =>
 builder.Services.AddControllers();
 builder.Services.Configure<FormOptions>(options =>
 {
-    options.MultipartBodyLengthLimit = 52428800; // 50 MB
+    options.MultipartBodyLengthLimit = 104857600; // 100 MB
     options.ValueLengthLimit = int.MaxValue;
     options.MultipartHeadersLengthLimit = int.MaxValue;
 });
