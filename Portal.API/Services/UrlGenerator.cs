@@ -16,13 +16,19 @@ namespace Portal.API.Services
         public string? GetDownloadArtigoUrl(Guid id)
         {
             var http = _httpContextAccessor.HttpContext!;
-            return _linkGenerator.GetUriByName(http, "DownloadArtigoPdf", new { id });
+            return _linkGenerator.GetUriByName(http, "DownloadPdfArtigo", new { id });
         }
 
         public string? GetDownloadRevistaUrl(Guid id)
         {
             var http = _httpContextAccessor.HttpContext!;
-            return _linkGenerator.GetUriByName(http, "DownloadRevistaPdf", new { id });
+            return _linkGenerator.GetUriByName(http, "DownloadPdfRevista", new { id });
+        }
+
+        public string? GetImagemRevistaUrl(Guid id)
+        {
+            var http = _httpContextAccessor.HttpContext!;
+            return _linkGenerator.GetUriByName(http, "DownloadImagemRevista", new { id });
         }
     }
 }

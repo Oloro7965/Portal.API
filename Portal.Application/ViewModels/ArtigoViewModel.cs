@@ -10,9 +10,10 @@ namespace Portal.Application.ViewModels
 {
     public class ArtigoViewModel
     {
-        public ArtigoViewModel(string titulo, string descricao, DateTime publicacao, 
-             List<Usuario> autores, Earea area, List<Keywords> keywords)
+        public ArtigoViewModel(Guid id,string titulo, string descricao, DateTime publicacao, 
+             List<Usuario> autores, Earea area, List<Keywords> keywords,string? PdfUrl = null)
         {
+            Id = id;
             this.titulo = titulo;
             this.descricao = descricao;
             this.publicacao = publicacao;
@@ -20,10 +21,12 @@ namespace Portal.Application.ViewModels
             this.autores = autores;
             this.area = area;
             this.keywords = keywords;
+            pdfUrl = PdfUrl;
         }
-
+        public Guid Id { get;private set; }
         public string titulo { get; private set; }
         public string descricao { get; private set; }
+        public string? pdfUrl { get; private set; }
         public DateTime publicacao { get; private set; }
         //public string arquivopdf { get; private set; }
         public List<Usuario> autores { get; private set; }

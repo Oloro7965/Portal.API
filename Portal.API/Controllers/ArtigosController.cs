@@ -45,7 +45,7 @@ namespace Portal.API.Controllers
 
             return Ok(artigo);
         }
-        [HttpGet("{id}/download")]
+        [HttpGet("{id}/download",Name = "DownloadPdfArtigo")]
         public async Task<IActionResult> DownloadPdfArtigo(Guid id)
         {
             var query= new DownloadArtigoQuery(id);

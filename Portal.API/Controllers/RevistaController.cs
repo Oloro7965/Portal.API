@@ -9,6 +9,7 @@ using Portal.Application.Commands.UploadPdfArtigoCommand;
 using Portal.Application.Commands.UploadPdfRevistaCommand;
 using Portal.Application.Queries.BaixarRevistaQuery;
 using Portal.Application.Queries.DownloadArtigoQuery;
+using Portal.Application.Queries.DownloadCapaRevistaQuery;
 using Portal.Application.Queries.GetAllRevistasQuery;
 using Portal.Application.Queries.GetRevistaQuery;
 
@@ -46,13 +47,22 @@ namespace Portal.API.Controllers
 
             return Ok(revista);
         }
-        [HttpGet("{id}/download")]
+        [HttpGet("{id}/download",Name = "DownloadPdfRevista")]
         public async Task<IActionResult> DownloadPdfRevista(Guid id)
         {
             var query = new DownloadRevistaQuery(id);
             var bytes = await _mediator.Send(query);
 
             return File(bytes, "application/pdf", $"revista-{id}.pdf");
+        }
+        [HttpGet("{id}/downloadImagem", Name = "DownloadImagemRevista")]
+        public async Task<IActionResult> DownloadImagemRevista(Guid id)
+        {
+            var query = new DownloadCapaRevistaQuery(id);
+            var bytes = await _mediator.Send(query);
+            if (bytes is null || bytes.Length == 0)
+                return NotFound("Capa não encontrada.");
+            return File(bytes, "image/jpeg");
         }
         [HttpPost]
         [Authorize(Roles = "professor,admin")]

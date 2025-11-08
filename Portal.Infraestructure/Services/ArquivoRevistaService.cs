@@ -22,10 +22,18 @@ namespace Portal.Infraestructure.Services
 
         public async Task<byte[]> BaixarAsync(Guid id)
         {
-            var artigo = await _revistaRepository.GetByIdAsync(id)
+            var revista = await _revistaRepository.GetByIdAsync(id)
             ?? throw new Exception("Revista não encontrada");
 
-            return artigo.arquivopdf ?? throw new Exception("Revista não encontrada");
+            return revista.arquivopdf ?? throw new Exception("Revista não encontrada");
+        }
+
+        public async Task<byte[]> BaixarImagemAsync(Guid id)
+        {
+            var revista = await _revistaRepository.GetByIdAsync(id)
+            ?? throw new Exception("Revista não encontrada");
+
+            return revista.capa ?? throw new Exception("Revista não encontrada");
         }
 
         public async Task UploadAsync(Guid id, IFormFile arquivo)
