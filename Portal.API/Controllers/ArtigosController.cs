@@ -58,8 +58,13 @@ namespace Portal.API.Controllers
         [Authorize(Roles = "professor,admin")]
         public async Task<IActionResult> CreateArtigo(CreateArtigoCommand command)
         {
-            var artigoId = await _mediator.Send(command);
-            return CreatedAtAction(nameof(GetArtigoById), new { id = artigoId }, command);
+            var result = await _mediator.Send(command);
+            return CreatedAtAction(nameof(GetArtigoById), new { id = result.Data }, new
+            {
+                id = result.Data,
+                success = true,
+                message = "Artigo criado com sucesso",
+            });
         }
 
         // ✏️ Somente professor ou admin

@@ -59,8 +59,13 @@ namespace Portal.API.Controllers
         [Consumes("multipart/form-data")]
         public async Task<IActionResult> CreateRevista([FromForm] CreateRevistaCommand command)
         {
-            var revistaId = await _mediator.Send(command);
-            return CreatedAtAction(nameof(GetRevistaById), new { id = revistaId }, command);
+            var result = await _mediator.Send(command);
+            return CreatedAtAction(nameof(GetRevistaById), new { id = result.Data }, new
+            {
+                id = result.Data,
+                success = true,
+                message = "Revista criada com sucesso",
+            });
         }
 
         [HttpPut("{id}")]
