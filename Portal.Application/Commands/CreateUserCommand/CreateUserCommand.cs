@@ -15,6 +15,6 @@ namespace Portal.Application.Commands.CreateUserCommand
         public string NomeCompleto { get; set; }
         public string email { get; set; }
         public string senhaHash { get; set; }
-        //public EtipoUsuario tipoUsuario { get; set; }
+        public EtipoUsuario tipoUsuario { get; set; }
     }
 }
