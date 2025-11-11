@@ -11,6 +11,7 @@ using Portal.Core.Enums;
 using Microsoft.EntityFrameworkCore;
 using System.Threading;
 using Portal.Core.Service;
+using System.Net.NetworkInformation;
 
 namespace Portal.Application.Commands.CreateRevistaCommand
 {
@@ -42,11 +43,19 @@ namespace Portal.Application.Commands.CreateRevistaCommand
             {
                  autores= await _usuarioRepository.GetByNamesAsync(request.Autores);
             }
+            using var pdfStream = new MemoryStream();
+            using var capaStream = new MemoryStream();
+            await request.Arquivopdf.CopyToAsync(pdfStream);
+            await request.Capa.CopyToAsync(capaStream);
+            var capaBytes= capaStream.ToArray();
+            var pdfBytes = pdfStream.ToArray();
             var revista = new Revista(
                 request.titulo,
                 request.descricao,
                 request.publicacao,
                 request.area,
+                capaBytes,
+                pdfBytes,
                 keywords
             );
             await _revistaRepository.AddAsync(revista);

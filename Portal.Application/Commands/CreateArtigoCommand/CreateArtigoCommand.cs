@@ -22,7 +22,7 @@ namespace Portal.Application.Commands.CreateArtigoCommand
         //public List<int>? KeywordsIds { get; set; }
         public List<string>? KeywordsNames { get; set; }
         public List<string>? Autores { get; set; }
-        public IFormFile? Arquivopdf { get; set; }
+        public IFormFile Arquivopdf { get; set; }
 
     }
 }

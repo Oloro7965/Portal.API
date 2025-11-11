@@ -14,8 +14,8 @@ namespace Portal.Core.Entities
         {
 
         }
-        public artigo(string titulo, string descricao, DateTime publicacao,Earea area,
-            List<Keywords>? keywords = null,List<Usuario>? autores = null, byte[]? Arquivopdf = null)
+        public artigo(string titulo, string descricao, DateTime publicacao,Earea area,byte[] Arquivopdf,
+            List<Keywords>? keywords = null,List<Usuario>? autores = null)
         {
             this.titulo = titulo;
             this.descricao = descricao;
@@ -29,7 +29,7 @@ namespace Portal.Core.Entities
         public string titulo { get; private set; }
         public string descricao { get; private set; }
         public DateTime publicacao { get; private set; }
-        public byte[]? arquivopdf { get; private set; }
+        public byte[] arquivopdf { get; private set; }
         public List<Usuario> autores { get; private set; }
         public Earea area { get; private set; }
         public List<Keywords> keywords  { get; private set; }

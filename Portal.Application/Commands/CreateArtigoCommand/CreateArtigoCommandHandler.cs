@@ -39,11 +39,15 @@ namespace Portal.Application.Commands.CreateArtigoCommand
             {
                 autores = await _usuarioRepository.GetByNamesAsync(request.Autores);
             }
+            using var memoryStream = new MemoryStream();
+            await request.Arquivopdf.CopyToAsync(memoryStream);
+            var pdfBytes = memoryStream.ToArray();
             var artigo = new artigo(
                 request.Titulo,
                 request.Descricao,
                 request.DataPublicacao,
                 request.area,
+                pdfBytes,
                 keywords,
                 autores
             );
