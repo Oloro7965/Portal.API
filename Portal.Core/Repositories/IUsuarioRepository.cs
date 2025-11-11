@@ -10,6 +10,7 @@ namespace Portal.Core.Repositories
     public interface IUsuarioRepository
     {
         Task<List<Usuario>> GetAllAsync();
+        Task<List<Usuario>> GetByNamesAsync(List<string> autores);
         Task<Usuario> GetByIdAsync(Guid id);
         Task<Usuario> GetByEmailAsync(string Email);
         Task AddAsync(Usuario usuario);

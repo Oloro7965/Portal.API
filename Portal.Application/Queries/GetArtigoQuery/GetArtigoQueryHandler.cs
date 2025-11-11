@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Portal.Application.Interfaces;
 using Portal.Application.ViewModels;
+using Portal.Core.Entities;
 using Portal.Core.Repositories;
 using System;
 using System.Collections.Generic;
@@ -30,7 +31,8 @@ namespace Portal.Application.Queries.GetArtigoQuery
             }
 
             var ArtigoDetailViewModel = new ArtigoViewModel(artigo.Id,artigo.titulo, artigo.descricao, 
-                artigo.publicacao, artigo.autores, artigo.area, artigo.keywords, 
+                artigo.publicacao, (artigo.autores?? new List<Usuario>()).Select(u => new UsuarioViewModel(u.NomeCompleto, u.email)).ToList(),
+                artigo.area.ToString(), (artigo.keywords?? new List<Keywords>()).Select(u => new KeywordsViewModel(u.titulo)).ToList(), 
                 artigo.arquivopdf != null ? _urlGenerator.GetDownloadArtigoUrl(artigo.Id) : null);
             return ResultViewModel<ArtigoViewModel>.Success(ArtigoDetailViewModel);
         }

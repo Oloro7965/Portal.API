@@ -23,11 +23,21 @@ namespace Portal.Infraestructure.Persistance.Repositories
         }
         public async Task<List<Revista>> GetAllAsync()
         {
-            return await _dbcontext.Revistas.Where(u => u.IsDeleted.Equals(false)).ToListAsync();
+            //return await _dbcontext.Revistas.Where(u => u.IsDeleted.Equals(false)).ToListAsync();
+            return await _dbcontext.Revistas
+                   .Where(u => u.IsDeleted.Equals(false))
+                    .Include(a => a.autores)
+                    .Include(a => a.keywords)
+                    .AsNoTracking()
+                    .AsSplitQuery() // evita “cartesian explosion” em N:N
+                    .ToListAsync();
         }
         public async Task<Revista> GetByIdAsync(Guid id)
         {
-            return await _dbcontext.Revistas.Where(c => c.IsDeleted.Equals(false) && c.Id == id).SingleOrDefaultAsync();
+            return await _dbcontext.Revistas.Where(c => c.IsDeleted.Equals(false) && c.Id == id)
+                .Include(c => c.autores)
+                .Include(c => c.keywords)
+                .SingleOrDefaultAsync();
         }
         public async Task SaveChangesAsync()
         {

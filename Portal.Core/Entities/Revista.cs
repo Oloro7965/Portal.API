@@ -11,7 +11,7 @@ namespace Portal.Core.Entities
     {
         private Revista() { }
         public Revista(string titulo, string descricao,DateTime publicacao, 
-            Earea area,List<Keywords>? keywords = null, byte[]? Capa = null, byte[]? Arquivopdf = null)
+            Earea area,List<Keywords>? keywords = null, List<Usuario>? autores = null,byte[]? Capa = null, byte[]? Arquivopdf = null)
         {
             this.titulo = titulo;
             this.descricao = descricao;
@@ -19,7 +19,7 @@ namespace Portal.Core.Entities
             arquivopdf = Arquivopdf;
             this.publicacao = publicacao;
             //this.arquivopdf = arquivopdf;
-            this.autores = new List<Usuario>();
+            this.autores = autores ?? new List<Usuario>();
             this.area = area;
             this.keywords = keywords ?? new List<Keywords>();
             

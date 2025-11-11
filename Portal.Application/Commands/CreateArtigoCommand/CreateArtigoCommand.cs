@@ -19,7 +19,9 @@ namespace Portal.Application.Commands.CreateArtigoCommand
         //public string ArquivoPdf { get; set; }
         public DateTime DataPublicacao { get; set; }
         //public List<Keywords>? Keywords { get; set; }
-        public List<int>? KeywordsIds { get; set; }
+        //public List<int>? KeywordsIds { get; set; }
+        public List<string>? KeywordsNames { get; set; }
+        public List<string>? Autores { get; set; }
         public IFormFile? Arquivopdf { get; set; }
 
     }

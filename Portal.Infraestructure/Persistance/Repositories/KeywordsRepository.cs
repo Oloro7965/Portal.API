@@ -44,6 +44,13 @@ namespace Portal.Infraestructure.Persistance.Repositories
             .ToListAsync();
         }
 
+        public async Task<List<Keywords>> GetByNamesAsync(List<string> keywords)
+        {
+            return await _dbcontext.keywords
+            .Where(k => keywords.Contains(k.titulo))
+            .ToListAsync();
+        }
+
         public async Task SaveChangesAsync()
         {
             await _dbcontext.SaveChangesAsync();

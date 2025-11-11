@@ -13,6 +13,7 @@ namespace Portal.Core.Repositories
         Task<Keywords> GetByIdAsync(int id);
         Task AddAsync(Keywords keywords);
         Task<List<Keywords>> GetByIdsAsync(List<int> ids);
+        Task<List<Keywords>> GetByNamesAsync(List<string> keywords);
         Task SaveChangesAsync();
     }
 }

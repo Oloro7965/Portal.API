@@ -25,12 +25,23 @@ namespace Portal.Infraestructure.Persistance.Repositories
         }
         public async Task<List<artigo>>GetAllAsync()
         {
-            return await _dbcontext.Artigos.Where(u => u.IsDeleted.Equals(false)).ToListAsync();
-
+            //return await _dbcontext.Artigos.Where(u => u.IsDeleted.Equals(false)).ToListAsync();
+            return await _dbcontext.Artigos
+                   .Where(u => u.IsDeleted.Equals(false))
+                    .Include(a => a.autores)
+                    .Include(a => a.keywords)
+                    .AsNoTracking()
+                    .AsSplitQuery() // evita “cartesian explosion” em N:N
+                    .ToListAsync();
+            
         }
         public async Task<artigo> GetByIdAsync(Guid id)
         {
-            return await _dbcontext.Artigos.Where(c => c.IsDeleted.Equals(false) && c.Id == id).SingleOrDefaultAsync();
+            return await _dbcontext.Artigos.Where(c => c.IsDeleted.Equals(false) && c.Id == id)
+                .Include(c=>c.autores)
+                .Include(c=>c.keywords)
+                .SingleOrDefaultAsync();
+            //return await _dbcontext.Artigos.Where(c => c.Id == id).SingleOrDefaultAsync();
         }
         public async Task SaveChangesAsync()
         {

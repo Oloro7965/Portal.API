@@ -19,21 +19,28 @@ namespace Portal.Application.Commands.CreateRevistaCommand
         private readonly IRevistaRepository _revistaRepository;
         private readonly IKeywordsRepository _keywordsRepository;
         private readonly IArquivoRevistaService _arquivoRevistaService;
+        private readonly IUsuarioRepository _usuarioRepository;
 
         public CreateRevistaCommandHandler(IRevistaRepository revistaRepository, IKeywordsRepository keywordsRepository,
-            IArquivoRevistaService arquivoRevistaService)
+            IArquivoRevistaService arquivoRevistaService, IUsuarioRepository usuarioRepository)
         {
             _revistaRepository = revistaRepository;
             _keywordsRepository = keywordsRepository;
             _arquivoRevistaService = arquivoRevistaService;
+            _usuarioRepository = usuarioRepository;
         }
+
         public async Task<ResultViewModel<object>> Handle(CreateRevistaCommand request, CancellationToken CancellationToken) 
         {
             List<Keywords>? keywords = null;
-
-            if (request.KeywordsIds is not null && request.KeywordsIds.Any())
+            List<Usuario>? autores = null;
+            if (request.KeywordsNames is not null && request.KeywordsNames.Any())
             {
-                keywords = await _keywordsRepository.GetByIdsAsync(request.KeywordsIds);
+                keywords = await _keywordsRepository.GetByNamesAsync(request.KeywordsNames);
+            }
+            if (request.Autores is not null && request.Autores.Any())
+            {
+                 autores= await _usuarioRepository.GetByNamesAsync(request.Autores);
             }
             var revista = new Revista(
                 request.titulo,

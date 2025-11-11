@@ -37,6 +37,14 @@ namespace Portal.Infraestructure.Persistance.Repositories
         {
             return await _dbcontext.Usuarios.Where(c => c.Id == id).SingleOrDefaultAsync();
         }
+
+        public async Task<List<Usuario>> GetByNamesAsync(List<string> autores)
+        {
+            return await _dbcontext.Usuarios
+            .Where(u=> autores.Contains(u.NomeCompleto))
+            .ToListAsync();
+        }
+
         public async Task SaveChangesAsync()
         {
             await _dbcontext.SaveChangesAsync();

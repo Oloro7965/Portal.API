@@ -15,13 +15,13 @@ namespace Portal.Core.Entities
 
         }
         public artigo(string titulo, string descricao, DateTime publicacao,Earea area,
-            List<Keywords>? keywords = null,byte[]? Arquivopdf = null)
+            List<Keywords>? keywords = null,List<Usuario>? autores = null, byte[]? Arquivopdf = null)
         {
             this.titulo = titulo;
             this.descricao = descricao;
             this.publicacao = publicacao;
             this.arquivopdf = Arquivopdf;
-            this.autores = new List<Usuario>();
+            this.autores = autores ?? new List<Usuario>();
             this.area = area;
             this.keywords = keywords ?? new List<Keywords>();
         }

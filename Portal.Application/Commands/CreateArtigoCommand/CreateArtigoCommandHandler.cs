@@ -16,29 +16,36 @@ namespace Portal.Application.Commands.CreateArtigoCommand
         private readonly IArtigoRepository _artigoRepository;
         private readonly IKeywordsRepository _keywordsRepository;
         private readonly IArquivoArtigoService _arquivoArtigoService;
+        private readonly IUsuarioRepository _usuarioRepository;
 
-        public CreateArtigoCommandHandler(IArtigoRepository artigoRepository, 
-            IKeywordsRepository keywordsRepository, IArquivoArtigoService arquivoArtigoService)
+        public CreateArtigoCommandHandler(IArtigoRepository artigoRepository, IKeywordsRepository keywordsRepository,
+            IArquivoArtigoService arquivoArtigoService, IUsuarioRepository usuarioRepository)
         {
             _artigoRepository = artigoRepository;
             _keywordsRepository = keywordsRepository;
             _arquivoArtigoService = arquivoArtigoService;
+            _usuarioRepository = usuarioRepository;
         }
 
         public async Task<ResultViewModel<object>> Handle(CreateArtigoCommand request, CancellationToken cancellationToken)
         {
             List<Keywords>? keywords = null;
-
-            if (request.KeywordsIds is not null && request.KeywordsIds.Any())
+            List<Usuario>? autores = null;
+            if (request.KeywordsNames is not null && request.KeywordsNames.Any())
             {
-                keywords = await _keywordsRepository.GetByIdsAsync(request.KeywordsIds);
+                keywords = await _keywordsRepository.GetByNamesAsync(request.KeywordsNames);
+            }
+            if (request.Autores is not null && request.Autores.Any())
+            {
+                autores = await _usuarioRepository.GetByNamesAsync(request.Autores);
             }
             var artigo = new artigo(
                 request.Titulo,
                 request.Descricao,
                 request.DataPublicacao,
                 request.area,
-                keywords
+                keywords,
+                autores
             );
 
             await _artigoRepository.AddAsync(artigo);
