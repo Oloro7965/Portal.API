@@ -10,11 +10,11 @@ namespace Portal.Application.ViewModels
 {
     public class RevistaViewModel
     {
-        public RevistaViewModel(string titulo, string descricao,
+        public RevistaViewModel(Guid id,string titulo, string descricao,
              DateTime publicacao,List<UsuarioViewModel> autores, string area, List<KeywordsViewModel> keywords,
              bool isDeleted, string? CapaUrl = null, string? PdfUrl = null)
         {
-            //Id=id;
+            Id=id;
             this.titulo = titulo;
             this.descricao = descricao;
             capaUrl = CapaUrl;
@@ -26,7 +26,7 @@ namespace Portal.Application.ViewModels
             this.keywords = keywords;
             IsDeleted = isDeleted;
         }
-        //public Guid Id { get;private set; }
+        public Guid Id { get;private set; }
         public string titulo { get; private set; }
         public string descricao { get; private set; }
         //public byte[]? capa { get; private set; }
