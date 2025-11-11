@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Portal.Application.ViewModels;
 using Portal.Core.Entities;
+using Portal.Core.Enums;
 using Portal.Core.Repositories;
 using Portal.Core.Service;
 using System;
@@ -25,7 +26,7 @@ namespace Portal.Application.Commands.CreateUserCommand
         public async Task<ResultViewModel<object>> Handle(CreateUserCommand request, CancellationToken cancellationToken)
         {
             var senhaHash = _authService.ComputeHash(request.senhaHash);
-            var usuario = new Usuario(request.NomeCompleto, request.email, senhaHash,request.tipoUsuario);
+            var usuario = new Usuario(request.NomeCompleto, request.email, senhaHash,EtipoUsuario.usuario);
             await _usuarioRepository.AddAsync(usuario);
             return ResultViewModel<object>.Success( new { usuario.Id});
         }

@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Portal.Application.Commands.CreateProfessorCommand;
 using Portal.Application.Commands.CreateUserCommand;
 using Portal.Application.Commands.DeleteUserCommand;
 using Portal.Application.Commands.UpdateUserCommand;
@@ -47,7 +48,14 @@ namespace Portal.API.Controllers
 
             return Ok(user);
         }
+        //[HttpPost("professor")]
+        //public async Task<IActionResult> CreateProfessor(CreateProfessorCommand command)
+        //{
+        //    var UserId = await _mediator.Send(command);
 
+        //    return CreatedAtAction(nameof(GetUserById), new { id = UserId }, command);
+
+        //}
         [HttpPost]
         public async Task<IActionResult> CreateUser(CreateUserCommand command)
         {
