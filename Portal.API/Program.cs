@@ -13,7 +13,6 @@ using Portal.Infraestructure.Services;
 using Portal.API.Services;
 using System.Text;
 using System.Text.Json;
-using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
@@ -55,9 +54,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
         OnMessageReceived = context =>
         {
             if (context.Request.Cookies.ContainsKey("AuthToken"))
-            {
                 context.Token = context.Request.Cookies["AuthToken"];
-            }
             return Task.CompletedTask;
         },
         OnChallenge = context =>
@@ -110,19 +107,21 @@ builder.Services.Configure<FormOptions>(options =>
 // 🔹 Swagger & CORS
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+// ✅ Política nomeada de CORS (suporta AllowCredentials)
 builder.Services.AddCors(options =>
 {
-    options.AddDefaultPolicy(policy =>
+    options.AddPolicy("DockerCors", policy =>
     {
         policy
-						.WithOrigins(
-                "http://portal:4173",   // nome do serviço do frontend no docker-compose
-                "http://localhost:4173",     // acesso local (caso teste via browser na VM)
-                "http://134.209.51.63:4173"     // IP interno (fallback)
+            .WithOrigins(
+                "http://portal:5173",         // nome do serviço frontend no Docker
+                "http://localhost:5173",      // acesso local via browser
+                "http://134.209.51.63:5173"   // IP público/externo
             )
-              .AllowAnyHeader()
-              .AllowAnyMethod()
-              .AllowCredentials();
+            .AllowAnyHeader()
+            .AllowAnyMethod()
+            .AllowCredentials();
     });
 });
 
@@ -147,22 +146,21 @@ using (var scope = app.Services.CreateScope())
 }
 
 // ===================================================
-// 🌐 PIPELINE HTTP
+// 🌐 PIPELINE HTTP (ordem é importante!)
 // ===================================================
-app.UseCors();
 
-// if (app.Environment.IsDevelopment() || app.Environment.IsEnvironment("Docker"))
-// {
-//     app.UseSwagger();
-//     app.UseSwaggerUI();
-// }
-
+// Swagger (opcional, habilitado em todos os ambientes)
 app.UseSwagger();
 app.UseSwaggerUI();
 
+// 🔹 CORS deve vir ANTES da autenticação
+app.UseCors("DockerCors");
+
 app.UseHttpsRedirection();
+
 app.UseAuthentication();
 app.UseAuthorization();
+
 app.MapControllers();
 
 app.Run();
