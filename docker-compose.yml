@@ -1,0 +1,33 @@
+version: '3.9'
+
+services:
+  portaldb:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: portaldb
+    environment:
+      SA_PASSWORD: "YourStrongPassw0rd"
+      ACCEPT_EULA: "Y"
+    ports:
+      - "1433:1433"
+    volumes:
+      - sql_data:/var/opt/mssql
+
+  portalapi:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: portalapi
+    depends_on:
+      - portaldb
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ConnectionStrings__Default=Server=portaldb,1433;Database=MinhaBase;User Id=sa;Password=YourStrongPassw0rd;TrustServerCertificate=True;
+      - Jwt__Key=uma_chave_super_secreta
+      - Jwt__Issuer=PortalAPI
+      - Jwt__Audience=PortalClient
+    ports:
+      - "5186:80"
+    entrypoint: ["/app/entrypoint.sh"]
+
+volumes:
+  sql_data:
