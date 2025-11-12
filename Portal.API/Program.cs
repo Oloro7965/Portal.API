@@ -115,7 +115,7 @@ builder.Services.AddCors(options =>
 {
     options.AddDefaultPolicy(policy =>
     {
-        policy.WithOrigins("http://localhost:5173")
+        policy.WithOrigins("http://134.209.51.63:5173/")
               .AllowAnyHeader()
               .AllowAnyMethod()
               .AllowCredentials();
