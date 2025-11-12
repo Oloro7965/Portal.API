@@ -29,7 +29,7 @@ namespace Portal.Application.Queries.GetRevistaQuery
             {
                 return ResultViewModel<RevistaViewModel>.Error("Revista não encontrada.");
             }
-            var RevistaDetailViewModel = new RevistaViewModel(revista.titulo, revista.descricao, 
+            var RevistaDetailViewModel = new RevistaViewModel(revista.Id,revista.titulo, revista.descricao, 
                 revista.publicacao, (revista.autores ?? new List<Usuario>()).Select(u => new UsuarioViewModel(u.NomeCompleto, u.email)).ToList(), 
                 revista.area.ToString(), (revista.keywords ?? new List<Keywords>()).Select(u => new KeywordsViewModel(u.titulo)).ToList(),
                 revista.IsDeleted,revista.capa != null ? _urlGenerator.GetImagemRevistaUrl(revista.Id) : null,

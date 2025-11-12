@@ -25,7 +25,7 @@ namespace Portal.Application.Queries.GetAllRevistasQuery
         public async Task<ResultViewModel<List<RevistaViewModel>>> Handle(GetAllRevistasQuery request, CancellationToken cancellationToken)
         {
             var revistas = await _revistaRepository.GetAllAsync();
-            var revistaViewModel = revistas.Select(r => new RevistaViewModel(r.titulo, r.descricao,r.publicacao,
+            var revistaViewModel = revistas.Select(r => new RevistaViewModel(r.Id,r.titulo, r.descricao,r.publicacao,
                 (r.autores ?? new List<Usuario>()).Select(u => new UsuarioViewModel(u.NomeCompleto, u.email)).ToList(), 
                 r.area.ToString(), (r.keywords ?? new List<Keywords>()).Select(u => new KeywordsViewModel(u.titulo)).ToList(),
                 r.IsDeleted, r.capa != null ? _urlGenerator.GetImagemRevistaUrl(r.Id) : null,
