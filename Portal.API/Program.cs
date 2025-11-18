@@ -115,9 +115,9 @@ builder.Services.AddCors(options =>
     {
         policy
             .WithOrigins(
-                "http://portal:5173",         // nome do serviço frontend no Docker
-                "http://localhost:5173",      // acesso local via browser
-                "http://134.209.51.63:5173"   // IP público/externo
+                "http://portal:3000",         // nome do serviço frontend no Docker
+                "http://localhost:3000",      // acesso local via browser
+                "http://10.77.1.56:3000"      // IP da máquina virtual
             )
             .AllowAnyHeader()
             .AllowAnyMethod()
