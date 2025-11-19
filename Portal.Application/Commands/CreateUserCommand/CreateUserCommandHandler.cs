@@ -25,6 +25,8 @@ namespace Portal.Application.Commands.CreateUserCommand
 
         public async Task<ResultViewModel<object>> Handle(CreateUserCommand request, CancellationToken cancellationToken)
         {
+            if (await _usuarioRepository.GetByEmailAsync(request.email) != null)
+                return ResultViewModel<object>.Error("Já existe um usuário com esse email.");
             var senhaHash = _authService.ComputeHash(request.senhaHash);
             var usuario = new Usuario(request.NomeCompleto, request.email, senhaHash,request.tipoUsuario);
             await _usuarioRepository.AddAsync(usuario);

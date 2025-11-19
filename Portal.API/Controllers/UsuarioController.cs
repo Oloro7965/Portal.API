@@ -59,9 +59,21 @@ namespace Portal.API.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateUser(CreateUserCommand command)
         {
-            var UserId = await _mediator.Send(command);
-
-            return CreatedAtAction(nameof(GetUserById), new { id = UserId }, command);
+            var result = await _mediator.Send(command);
+            if (!result.IsSuccess)
+            {
+                // Retorna 400 BadRequest com a mensagem de erro
+                return BadRequest(new
+                {
+                    success = false,
+                    message = result.Message,
+                });
+            }
+            return CreatedAtAction(nameof(GetUserById), new { id = result.Data }, new
+            {
+                success = true,
+                message = "Usuário criado com sucesso",
+            });
 
         }
         [HttpPost("Login")]
