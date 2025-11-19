@@ -13,6 +13,10 @@ using Portal.Infraestructure.Services;
 using Portal.API.Services;
 using System.Text;
 using System.Text.Json;
+using FluentValidation;
+using MediatR;
+using Portal.Application.Pipeline;
+using Portal.Application.Validators;
 
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
@@ -25,6 +29,10 @@ builder.Services.AddDbContext<PortalDbContext>(options => options.UseSqlServer(c
 
 // 🔹 MediatR e serviços da aplicação
 builder.Services.AddMediatR(opt => opt.RegisterServicesFromAssemblyContaining(typeof(CreateUserCommand)));
+builder.Services.AddValidatorsFromAssembly(typeof(CreateUserCommandValidator).Assembly);
+
+// Registrar pipeline de validao do MediatR
+builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
 builder.Services.AddScoped<IAuthService, AuthService>();
 
 // 🔹 JWT Configuration
